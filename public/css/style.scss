@@ -1,8 +1,55 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+//----------------------------------*\
+// Base
+//----------------------------------*/
+@import "reset";
+@import "default";
+
+ul{
+  margin: 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-a {
-  color: #00B7FF;
+li{
+  position: relative;
+  display: inline-block;
+  list-style-type: none;
+  margin: 20px;
+}
+
+div {
+  position: relative;
+  // background: rebeccapurple;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  color: #222;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  padding: 0;
+  background-image: url( '../img/star-2.svg' );
+  background-size: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#bg_video{
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -1000;
+	background: url(https://arkanys-assets.s3-sa-east-1.amazonaws.com/bg.jpg) no-repeat;
+	background-size: cover;
+z-index: -1;
 }
