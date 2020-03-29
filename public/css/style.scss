@@ -4,40 +4,228 @@
 @import "reset";
 @import "default";
 
-ul{
-  margin: 20px;
-  padding: 0;
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  @media screen and ( max-width: 980px ) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.list {
+  margin: 20px 0;
+  width: 100%;
+  padding-left: 400px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
+  @media screen and ( max-width: 980px ) {
+    padding-left: 0;
+  }
+
+  @media screen and ( max-width: 640px ) {
+    margin: 10px;
+  }
+
+  li{
+    position: relative;
+    display: inline-block;
+    list-style-type: none;
+    margin: 20px;
+
+    @media screen and ( max-width: 640px ) {
+      margin: 10px;
+    }
+  }
+
+  div {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    padding: 0;
+    background-image: url( '../img/star.svg' );
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    @media screen and ( max-width: 640px ) {
+      width: 120px;
+      height: 120px;
+      font-size: 16px;
+    }
+
+    &.realeza {
+      background-image: url( '../img/star-realeza.svg' );
+    }
+
+    &.delegado {
+      background-image: url( '../img/star-delegado.svg' );
+    }
+
+    &.exlider {
+      background-image: url( '../img/star-exlider.svg' );
+    }
+
+    &.lider {
+      background-image: url( '../img/star-lider.svg' );
+    }
+  }
 }
 
-li{
-  position: relative;
-  display: inline-block;
-  list-style-type: none;
-  margin: 20px;
-}
+.sidebar {
+  position: fixed;
+  left: 0;
+  display: block;
+  width: 400px;
+  height: 100vh;
+  background-image: url( '../img/bg-2.jpg' );
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 
-div {
-  position: relative;
-  // background: rebeccapurple;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  color: #222;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 900;
-  font-size: 18px;
-  padding: 0;
-  background-image: url( '../img/star-2.svg' );
-  background-size: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @media screen and ( max-width: 980px ) {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  &:before {
+    content: "";
+    width: 2px;
+    height: 100vh;
+    position: absolute;
+    right: -6px;
+    bottom: 0;
+    background-color: #1c0e23;
+
+    @media screen and ( max-width: 980px ) {
+      width: 100%;
+      height: 2px;
+      right: 0;
+      bottom: -6px;
+    }
+  }
+
+  .logo {
+    width: 150px;
+    margin:  0 auto;
+    display: block;
+
+    @media screen and ( max-width: 640px ) {
+      width: 120px;
+    }
+  }
+
+  .wrap {
+    padding: 30px;
+    margin-top: 50px;
+
+    @media screen and ( max-width: 980px ) {
+      margin-top: 10px;
+    }
+
+    @media screen and ( max-width: 640px ) {
+      padding: 15px 30px;
+    }
+  }
+
+  .title,
+  .subtitle {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+  }
+
+  .title {
+    position: relative;
+    font-size: 22px;
+    text-align: center;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+
+    @media screen and ( max-width: 640px ) {
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    span {
+      margin-top: 3px;
+      display: block;
+      font-size: 10px;
+    }
+
+    &:before {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate( -50%, 0%);
+
+      content: "";
+      width: 30px;
+      height: 1px;
+      background: white;
+    }
+  }
+
+  .subtitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 30px;
+
+    @media screen and ( max-width: 640px ) {
+      margin-top: 20px;
+    }
+  }
+
+  p {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  ul {
+    margin-top: 20px;
+
+    @media screen and ( max-width: 640px ) {
+      margin-top: 10px;
+    }
+  }
+
+  li {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    margin: 5px 0;
+
+    @media screen and ( max-width: 980px ) {
+      display: inline-block;
+    }
+  }
+
+  a {
+    color: #e4453f;
+    transition-duration: .3s;
+
+    &:hover {
+      color: white;
+    }
+  }
 }
 
 #bg_video{
@@ -51,5 +239,5 @@ div {
 	z-index: -1000;
 	background: url(https://arkanys-assets.s3-sa-east-1.amazonaws.com/bg.jpg) no-repeat;
 	background-size: cover;
-z-index: -1;
+  z-index: -1;
 }

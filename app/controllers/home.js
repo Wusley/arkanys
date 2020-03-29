@@ -1,6 +1,10 @@
 const express = require('express');
+const _ = require('underscore');
 const router = express.Router();
-// const Article = require('../models/article');
+const members = require('../models/members');
+
+let first = _.first( members ) ;
+let others = _.rest( members ) ;
 
 module.exports = (app) => {
   app.use('/', router);
@@ -9,7 +13,7 @@ module.exports = (app) => {
 router.get('/', (req, res, next) => {
   // const articles = [new Article(), new Article()];
   res.render('index', {
-    title: 'ARKANYS E-SPORTS'
-    // articles: articles
+    title: 'ARKANYS E-SPORTS',
+    members: _.union( [ first ], _.shuffle( others ) )
   });
 });

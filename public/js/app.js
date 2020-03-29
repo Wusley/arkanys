@@ -9,6 +9,7 @@ class HoverButton {
   attachEventsListener() {
     window.addEventListener('mousemove', e => this.onMouseMove(e));
     window.addEventListener('resize', e => this.calculatePosition(e));
+    window.addEventListener('scroll', e => this.calculatePosition(e));
   }
 
   calculatePosition() {
@@ -64,13 +65,10 @@ class HoverButton {
   }
 }
 
-const btn = document.querySelectorAll('li');
+const btn = document.querySelectorAll('li.bullet');
 
 for(var i = 0; i < btn.length; i++) {
 
   new HoverButton( btn[i].querySelector( 'div' ) );
-  
+
 }
-// new HoverButton(btn1);
-// const btn1 = document.querySelector('li:nth-child(1) div');
-// new HoverButton(btn1);

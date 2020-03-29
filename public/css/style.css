@@ -65,11 +65,59 @@ body {
   display: block;
   margin: 0;
   width: 100%;
-  min-height: 100vh; }
+  min-height: 100vh;
+  background-color: black; }
+
+.bg-shadow {
+  position: fixed;
+  z-index: 2000; }
+  .bg-shadow .top {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url("../img/border-top.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none; }
+  .bg-shadow .left {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100vh;
+    background: url("../img/border-left.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none; }
+  .bg-shadow .right {
+    position: fixed;
+    display: block;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100vh;
+    background: url("../img/border-right.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none; }
+  .bg-shadow .bottom {
+    position: fixed;
+    display: block;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url("../img/border-bottom.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none; }
 
 #main {
   position: relative;
-  display: block;
   width: 100%;
   height: 100%;
   overflow: hidden; }
@@ -82,37 +130,173 @@ body {
   .desktop-hide {
     display: none; } }
 
-ul {
-  margin: 20px;
-  padding: 0;
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; }
+  @media screen and (max-width: 980px) {
+    main {
+      flex-direction: column;
+      justify-content: center; } }
+
+.list {
+  margin: 20px 0;
+  width: 100%;
+  padding-left: 400px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center; }
+  @media screen and (max-width: 980px) {
+    .list {
+      padding-left: 0; } }
+  @media screen and (max-width: 640px) {
+    .list {
+      margin: 10px; } }
+  .list li {
+    position: relative;
+    display: inline-block;
+    list-style-type: none;
+    margin: 20px; }
+    @media screen and (max-width: 640px) {
+      .list li {
+        margin: 10px; } }
+  .list div {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    padding: 0;
+    background-image: url("../img/star.svg");
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; }
+    @media screen and (max-width: 640px) {
+      .list div {
+        width: 120px;
+        height: 120px;
+        font-size: 16px; } }
+    .list div.realeza {
+      background-image: url("../img/star-realeza.svg"); }
+    .list div.delegado {
+      background-image: url("../img/star-delegado.svg"); }
+    .list div.exlider {
+      background-image: url("../img/star-exlider.svg"); }
+    .list div.lider {
+      background-image: url("../img/star-lider.svg"); }
 
-li {
-  position: relative;
-  display: inline-block;
-  list-style-type: none;
-  margin: 20px; }
-
-div {
-  position: relative;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  color: #222;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 900;
-  font-size: 18px;
-  padding: 0;
-  background-image: url("../img/star-2.svg");
-  background-size: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; }
+.sidebar {
+  position: fixed;
+  left: 0;
+  display: block;
+  width: 400px;
+  height: 100vh;
+  background-image: url("../img/bg-2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; }
+  @media screen and (max-width: 980px) {
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto; } }
+  .sidebar:before {
+    content: "";
+    width: 2px;
+    height: 100vh;
+    position: absolute;
+    right: -6px;
+    bottom: 0;
+    background-color: #1c0e23; }
+    @media screen and (max-width: 980px) {
+      .sidebar:before {
+        width: 100%;
+        height: 2px;
+        right: 0;
+        bottom: -6px; } }
+  .sidebar .logo {
+    width: 150px;
+    margin: 0 auto;
+    display: block; }
+    @media screen and (max-width: 640px) {
+      .sidebar .logo {
+        width: 120px; } }
+  .sidebar .wrap {
+    padding: 30px;
+    margin-top: 50px; }
+    @media screen and (max-width: 980px) {
+      .sidebar .wrap {
+        margin-top: 10px; } }
+    @media screen and (max-width: 640px) {
+      .sidebar .wrap {
+        padding: 15px 30px; } }
+  .sidebar .title,
+  .sidebar .subtitle {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900; }
+  .sidebar .title {
+    position: relative;
+    font-size: 22px;
+    text-align: center;
+    padding-bottom: 30px;
+    margin-bottom: 30px; }
+    @media screen and (max-width: 640px) {
+      .sidebar .title {
+        padding-bottom: 15px;
+        margin-bottom: 20px; } }
+    .sidebar .title span {
+      margin-top: 3px;
+      display: block;
+      font-size: 10px; }
+    .sidebar .title:before {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      content: "";
+      width: 30px;
+      height: 1px;
+      background: white; }
+  .sidebar .subtitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 30px; }
+    @media screen and (max-width: 640px) {
+      .sidebar .subtitle {
+        margin-top: 20px; } }
+  .sidebar p {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px; }
+  .sidebar ul {
+    margin-top: 20px; }
+    @media screen and (max-width: 640px) {
+      .sidebar ul {
+        margin-top: 10px; } }
+  .sidebar li {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    margin: 5px 0; }
+    @media screen and (max-width: 980px) {
+      .sidebar li {
+        display: inline-block; } }
+  .sidebar a {
+    color: #e4453f;
+    transition-duration: .3s; }
+    .sidebar a:hover {
+      color: white; }
 
 #bg_video {
   position: fixed;
