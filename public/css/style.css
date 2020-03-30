@@ -231,10 +231,7 @@ main {
         width: 120px; } }
   .sidebar .wrap {
     padding: 30px;
-    margin-top: 50px; }
-    @media screen and (max-width: 980px) {
-      .sidebar .wrap {
-        margin-top: 10px; } }
+    margin-top: 10px; }
     @media screen and (max-width: 640px) {
       .sidebar .wrap {
         padding: 15px 30px; } }
@@ -280,7 +277,7 @@ main {
     font-size: 14px;
     line-height: 16px; }
   .sidebar ul {
-    margin-top: 20px; }
+    margin: 20px 0 30px; }
     @media screen and (max-width: 640px) {
       .sidebar ul {
         margin-top: 10px; } }
@@ -288,10 +285,8 @@ main {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     font-size: 16px;
-    margin: 5px 0; }
-    @media screen and (max-width: 980px) {
-      .sidebar li {
-        display: inline-block; } }
+    margin: 5px 0;
+    display: inline-block; }
   .sidebar a {
     color: #e4453f;
     transition-duration: .3s; }
