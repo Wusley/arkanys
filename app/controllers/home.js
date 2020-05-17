@@ -17,3 +17,11 @@ router.get('/', (req, res, next) => {
     members: _.union( [ first ], _.shuffle( others ) )
   });
 });
+
+router.get('/regras', (req, res, next) => {
+  // const articles = [new Article(), new Article()];
+  res.render('rules', {
+    title: 'ARKANYS E-SPORTS - Regras',
+    members: _.union( [ first ], _.shuffle( others ) )
+  });
+});
