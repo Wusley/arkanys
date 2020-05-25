@@ -1,0 +1,35 @@
+#contacts {
+  display: block;
+  width: 100%;
+  background-color: white;
+  padding: 50px 0;
+
+  h2 {
+    padding: 40px 0 20px;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  li {
+    margin: 20px;
+    display: inline-block;
+  }
+
+  a {
+    display: block;
+  }
+
+  .icon {
+    display: block;
+    width: 60px;
+    height: 60px;
+  }
+
+  @media screen and ( max-width: 980px ) {
+    padding: 20px 0;
+  }
+}

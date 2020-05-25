@@ -1,55 +1,15 @@
-<% include header %>
+<!doctype html>
+<html lang="en">
+  <% include head %>
 
-<% include bg-media %>
+  <body>
+    <% include bg-shadow %>
+    <% include header %>
 
-  <div class="bg-shadow">
-    <div class="top"></div>
-    <div class="left"></div>
-    <div class="right"></div>
-    <div class="bottom"></div>
-  </div>
+    <% include home %>
 
-  <main id="home">
-    <aside class="sidebar">
-      <div class="wrap">
-        <h1 class="title">
-          <img class="logo" src="/img/logo.png" alt="Arkanys E-Sports">
-        </h1>
+    <% include footer %>
+  </body>
 
-        <p>
-          Somos uma comunidade voltada para o cenário competitivo.
-          <br/>
-          Nossa história começou dentro do game <a href="https://survivalheroes.xcloudgame.com/" target="_blank">Survival Heroes Brasil</a> e desde então estamos expandindo nossa capacidade competitiva e criativa, alcançando novos patamares.
-          <br />
-          Se estiver disposto a pagar o preço, venha fazer parte da nossa família!
-        </p>
-
-        <h2 class="subtitle">Links:</h2>
-
-        <nav class="list-links">
-          <ul>
-            <li><a href="https://youtu.be/1gblCpTvHSo" target="_blank">Regras</a></li>
-            <li><a href="https://whats.link/queroarkanys" target="_blank">- Recrutamento</a></li>
-            <li><a href="https://discord.gg/3KHm4EY" target="_blank">- Discord</a></li>
-            <li><a href="https://www.youtube.com/channel/UCRdweKmKMREDDkZNXB7pCXg" target="_blank">- Youtube</a></li>
-          </ul>
-        </nav>
-
-        <iframe width="300" height="88" src="https://widget.toornament.com/tournaments/3432883608629362688/registration?_locale=pt_BR&theme=discipline" allowfullscreen frameborder="0"></iframe>
-      </div>
-    </aside>
-
-    <ul class="list">
-      <% for(var i = 0; i < members.length; i++) { %>
-        <% if (members[ i ].name != "") { %>
-          <li class="bullet">
-            <div class="<%= members[ i ].status.toLowerCase() %>">
-              <%= members[ i ].name %>
-            </div>
-          </li>
-        <% } %>
-      <% } %>
-    </ul>
-  </main>
-
-<% include footer %>
+  <% include scripts %>
+</html>

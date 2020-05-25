@@ -1,0 +1,29 @@
+#header {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+
+  .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50% );
+    width: 25vw;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .logo {
+    display: block;
+    width: 100%;
+  }
+
+  @media screen and ( max-width: 980px ) {
+    .title {
+      width: 50vw;
+      transform: translate( -50%, -70% );
+    }
+  }
+}

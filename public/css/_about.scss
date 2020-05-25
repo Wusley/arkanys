@@ -1,0 +1,24 @@
+#about {
+  position: relative;
+  margin: -60px 0;
+  padding: 110px 0 150px;
+  background-repeat: no-repeat;
+  background-size: cover!important;
+  background-position: center!important;
+
+  p {
+    margin: 0 auto;
+    max-width: 700px;
+    text-align: center;
+    color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  @media screen and ( max-width: 1024px ) {
+    margin: 0;
+    padding: 20px 0 60px;
+  }
+}

@@ -66,8 +66,55 @@ body {
   display: block;
   margin: 0;
   width: 100%;
-  min-height: 100vh;
-  background-color: black; }
+  min-height: 100vh; }
+
+h2 {
+  text-align: center;
+  padding: 40px 0;
+  color: #241722;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-size: 34px; }
+
+a {
+  color: #e4453f;
+  transition-duration: .3s; }
+  a:hover {
+    color: white; }
+
+#main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; }
+
+.wrap-content {
+  margin: 0 auto;
+  max-width: 100%;
+  width: 1024px;
+  padding: 0 20px; }
+
+@media screen and (max-width: 939px) {
+  .mobile-hide {
+    display: none; } }
+
+@media screen and (min-width: 940px) {
+  .desktop-hide {
+    display: none; } }
+
+/* MODULES */
+#bg-media {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1000;
+  background: url(https://arkanys-assets.s3-sa-east-1.amazonaws.com/bg.jpg) no-repeat;
+  background-size: cover;
+  z-index: -1; }
 
 .bg-shadow {
   position: fixed;
@@ -117,125 +164,158 @@ body {
     background-repeat: no-repeat;
     pointer-events: none; }
 
-#main {
+#about {
   position: relative;
+  margin: -60px 0;
+  padding: 110px 0 150px;
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-position: center !important; }
+  #about p {
+    margin: 0 auto;
+    max-width: 700px;
+    text-align: center;
+    color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 30px; }
+  @media screen and (max-width: 1024px) {
+    #about {
+      margin: 0;
+      padding: 20px 0 60px; } }
+
+#contacts {
+  display: block;
   width: 100%;
-  height: 100%;
-  overflow: hidden; }
+  background-color: white;
+  padding: 50px 0; }
+  #contacts h2 {
+    padding: 40px 0 20px; }
+  #contacts ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; }
+  #contacts li {
+    margin: 20px;
+    display: inline-block; }
+  #contacts a {
+    display: block; }
+  #contacts .icon {
+    display: block;
+    width: 60px;
+    height: 60px; }
+  @media screen and (max-width: 980px) {
+    #contacts {
+      padding: 20px 0; } }
 
-@media screen and (max-width: 939px) {
-  .mobile-hide {
-    display: none; } }
-
-@media screen and (min-width: 940px) {
-  .desktop-hide {
-    display: none; } }
-
-/* MODULES */
-#bg-media {
-  position: fixed;
-  right: 0;
+#footer {
+  width: 100%;
+  text-align: center;
+  position: absolute;
   bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -1000;
-  background: url(https://arkanys-assets.s3-sa-east-1.amazonaws.com/bg.jpg) no-repeat;
-  background-size: cover;
-  z-index: -1; }
+  color: #222;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  padding-bottom: 40px; }
+
+#header {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  top: 0; }
+  #header .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25vw;
+    margin: 0 auto;
+    display: block; }
+  #header .logo {
+    display: block;
+    width: 100%; }
+  @media screen and (max-width: 980px) {
+    #header .title {
+      width: 50vw;
+      transform: translate(-50%, -70%); } }
 
 /* PAGES */
 #rules {
-  background-color: white; }
-  #rules .logo {
-    width: 150px;
-    margin: 0 auto;
-    display: block; }
-    @media screen and (max-width: 640px) {
-      #rules .logo {
-        width: 120px; } }
-  #rules .wrap-content {
+  padding-top: 150px;
+  padding-bottom: 10vh; }
+  #rules #header {
+    position: absolute;
+    display: block;
     width: 100%;
-    min-height: 100vh;
-    padding: 50px 100px 40px; }
+    height: 150px; }
+    #rules #header .title {
+      width: 130px; }
+      @media screen and (max-width: 980px) {
+        #rules #header .title {
+          transform: translate(-50%, -50%); } }
+  #rules .wrap-content {
+    padding: 20px 30px 40px; }
+  #rules h2 {
+    text-align: center;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 32px; }
     @media screen and (max-width: 1024px) {
-      #rules .wrap-content {
-        padding: 50px; } }
-    @media screen and (max-width: 640px) {
-      #rules .wrap-content {
-        padding: 40px 30px; } }
-    #rules .wrap-content h2 {
-      text-align: center;
-      color: #222;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 900;
-      font-size: 32px;
-      line-height: 32px;
-      margin: 40px 0 20px; }
-      @media screen and (max-width: 1024px) {
-        #rules .wrap-content h2 {
-          font-size: 28px;
-          line-height: 28px; } }
-      @media screen and (max-width: 640px) {
-        #rules .wrap-content h2 {
-          margin: 20px 0 20px; } }
-    #rules .wrap-content p {
-      margin: 10px 0; }
-    #rules .wrap-content p, #rules .wrap-content strong {
-      color: #555;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 700;
-      font-size: 24px;
-      line-height: 24px; }
-      @media screen and (max-width: 1024px) {
-        #rules .wrap-content p, #rules .wrap-content strong {
-          font-size: 20px;
-          line-height: 20px; } }
-    #rules .wrap-content strong {
-      display: inline-block;
-      width: 50px;
-      color: #222;
-      font-weight: 900; }
-      @media screen and (max-width: 1024px) {
-        #rules .wrap-content strong {
-          width: 40px; } }
-    #rules .wrap-content span {
-      font-size: 16px;
-      line-height: 16px; }
+      #rules h2 {
+        font-size: 28px;
+        line-height: 28px; } }
+  #rules p {
+    margin: 10px 0; }
+  #rules p, #rules strong {
+    color: #555;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 24px; }
+    @media screen and (max-width: 1024px) {
+      #rules p, #rules strong {
+        font-size: 20px;
+        line-height: 20px; } }
+  #rules strong {
+    display: inline-block;
+    width: 50px;
+    color: #222;
+    font-weight: 500; }
+    @media screen and (max-width: 1024px) {
+      #rules strong {
+        width: 40px; } }
+  #rules span {
+    font-size: 16px;
+    line-height: 16px; }
 
 #home {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end; }
-  @media screen and (max-width: 980px) {
-    #home {
-      flex-direction: column;
-      justify-content: center; } }
-  #home .list {
+  padding-top: 100vh;
+  padding-bottom: 20vh; }
+  #home .list-members {
     margin: 20px 0;
     width: 100%;
-    padding-left: 400px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center; }
-    @media screen and (max-width: 980px) {
-      #home .list {
-        padding-left: 0; } }
     @media screen and (max-width: 640px) {
-      #home .list {
+      #home .list-members {
         margin: 10px; } }
-    #home .list li {
+    #home .list-members li {
       position: relative;
       display: inline-block;
       list-style-type: none;
       margin: 20px; }
       @media screen and (max-width: 640px) {
-        #home .list li {
+        #home .list-members li {
           margin: 10px; } }
-    #home .list div {
+    #home .list-members div {
       position: relative;
       width: 150px;
       height: 150px;
@@ -253,114 +333,15 @@ body {
       align-items: center;
       text-align: center; }
       @media screen and (max-width: 640px) {
-        #home .list div {
+        #home .list-members div {
           width: 120px;
           height: 120px;
           font-size: 16px; } }
-      #home .list div.realeza {
+      #home .list-members div.realeza {
         background-image: url("../img/star-realeza.svg"); }
-      #home .list div.delegado {
+      #home .list-members div.delegado {
         background-image: url("../img/star-delegado.svg"); }
-      #home .list div.exlider {
+      #home .list-members div.exlider {
         background-image: url("../img/star-exlider.svg"); }
-      #home .list div.lider {
+      #home .list-members div.lider {
         background-image: url("../img/star-lider.svg"); }
-  #home .sidebar {
-    position: fixed;
-    left: 0;
-    display: block;
-    width: 400px;
-    height: 100vh;
-    background-image: url("../img/bg-2.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center; }
-    @media screen and (max-width: 980px) {
-      #home .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto; } }
-    #home .sidebar:before {
-      content: "";
-      width: 2px;
-      height: 100vh;
-      position: absolute;
-      right: -6px;
-      bottom: 0;
-      background-color: #1c0e23; }
-      @media screen and (max-width: 980px) {
-        #home .sidebar:before {
-          width: 100%;
-          height: 2px;
-          right: 0;
-          bottom: -6px; } }
-    #home .sidebar .logo {
-      width: 150px;
-      margin: 0 auto;
-      display: block; }
-      @media screen and (max-width: 640px) {
-        #home .sidebar .logo {
-          width: 120px; } }
-    #home .sidebar .wrap {
-      padding: 30px;
-      margin-top: 10px; }
-      @media screen and (max-width: 640px) {
-        #home .sidebar .wrap {
-          padding: 15px 30px; } }
-    #home .sidebar .title,
-    #home .sidebar .subtitle {
-      color: white;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 900; }
-    #home .sidebar .title {
-      position: relative;
-      font-size: 22px;
-      text-align: center;
-      padding-bottom: 30px;
-      margin-bottom: 30px; }
-      @media screen and (max-width: 640px) {
-        #home .sidebar .title {
-          padding-bottom: 15px;
-          margin-bottom: 20px; } }
-      #home .sidebar .title span {
-        margin-top: 3px;
-        display: block;
-        font-size: 10px; }
-      #home .sidebar .title:before {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, 0%);
-        content: "";
-        width: 30px;
-        height: 1px;
-        background: white; }
-    #home .sidebar .subtitle {
-      font-size: 18px;
-      font-weight: 500;
-      margin-top: 30px; }
-      @media screen and (max-width: 640px) {
-        #home .sidebar .subtitle {
-          margin-top: 20px; } }
-    #home .sidebar p {
-      color: white;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 16px; }
-    #home .sidebar ul {
-      margin: 20px 0 30px; }
-      @media screen and (max-width: 640px) {
-        #home .sidebar ul {
-          margin-top: 10px; } }
-    #home .sidebar li {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      margin: 5px 0;
-      display: inline-block; }
-    #home .sidebar a {
-      color: #e4453f;
-      transition-duration: .3s; }
-      #home .sidebar a:hover {
-        color: white; }

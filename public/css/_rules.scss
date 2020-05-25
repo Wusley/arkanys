@@ -1,79 +1,73 @@
 #rules {
-  background-color: rgba(255,255,255,1);
+  padding-top: 150px;
+  padding-bottom: 10vh;
 
-  .logo {
-    width: 150px;
-    margin:  0 auto;
+  #header {
+    position: absolute;
     display: block;
+    width: 100%;
+    height: 150px;
 
-    @media screen and ( max-width: 640px ) {
-      width: 120px;
+    .title {
+      width: 130px;
+
+      @media screen and ( max-width: 980px ) {
+        transform: translate( -50%, -50% );
+      }
     }
   }
 
   .wrap-content {
-    width: 100%;
-    min-height: 100vh;
-    padding: 50px 100px 40px;
+    padding: 20px 30px 40px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 32px;
 
     @media screen and ( max-width: 1024px ) {
-      padding: 50px;
+      font-size: 28px;
+      line-height: 28px;
     }
 
     @media screen and ( max-width: 640px ) {
-      padding: 40px 30px;
     }
+  }
 
-    h2 {
-      text-align: center;
-      color: #222;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 900;
-      font-size: 32px;
-      line-height: 32px;
-      margin: 40px 0 20px;
+  p {
+    margin: 10px 0;
+  }
 
-      @media screen and ( max-width: 1024px ) {
-        font-size: 28px;
-        line-height: 28px;
-      }
+  p, strong {
+    color: #555;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 24px;
 
-      @media screen and ( max-width: 640px ) {
-        margin: 20px 0 20px;
-      }
+    @media screen and ( max-width: 1024px ) {
+      font-size: 20px;
+      line-height: 20px;
     }
+  }
 
-    p {
-      margin: 10px 0;
+  strong {
+    display: inline-block;
+    width: 50px;
+    color: #222;
+    font-weight: 500;
+
+    @media screen and ( max-width: 1024px ) {
+      width: 40px;
     }
+  }
 
-    p, strong {
-      color: #555;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 700;
-      font-size: 24px;
-      line-height: 24px;
-
-      @media screen and ( max-width: 1024px ) {
-        font-size: 20px;
-        line-height: 20px;
-      }
-    }
-
-    strong {
-      display: inline-block;
-      width: 50px;
-      color: #222;
-      font-weight: 900;
-
-      @media screen and ( max-width: 1024px ) {
-        width: 40px;
-      }
-    }
-
-    span {
-      font-size: 16px;
-      line-height: 16px;
-    }
+  span {
+    font-size: 16px;
+    line-height: 16px;
   }
 }
