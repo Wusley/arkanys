@@ -12,7 +12,7 @@ module.exports = (app, config) => {
   const env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
-  
+
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'ejs');
 
@@ -27,9 +27,46 @@ module.exports = (app, config) => {
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
 
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
+  /*
+  * SETUP MONGODB
+  */
+  const mongoose = require( 'mongoose' );
+
+  mongoose.connect( 'mongodb://arkanys:arkanys123@geonosis.mongodb.umbler.com:39589/arkanys', { useNewUrlParser: true, useUnifiedTopology: true } );
+
+  /*
+   * EVENT INITIALIZE MONGODB
+   */
+   mongoose.connection.once( 'open', async () => {
+
+     console.info( 'Mongodb connected!' );
+
+     try {
+
+       console.info( 'Mongodb sucesso!' );
+
+     } catch( err ) {
+
+       console.error( 'mongoose error' );
+       console.error( err );
+
+       process.exit( 1 );
+
+     }
+   /*
+    * * * * * *
+    */
+
+  } );
+
+  mongoose.connection.on( 'error', console.error.bind( console, 'connection error:' ) );
+  /*
+  * * * * * *
+  */
+
+  var controllers = glob.sync(config.root + '/app/Controllers/*.js');
   controllers.forEach((controller) => {
-    require(controller)(app);
+    require(controller)(app, mongoose);
   });
 
   app.use((req, res, next) => {

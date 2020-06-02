@@ -19,6 +19,7 @@
     "glob": "^6.0.4",
     "method-override": "^2.3.0",
     "morgan": "^1.6.1",
+    "mongoose": "^5.5.4",
     "serve-favicon": "^2.3.0",
     "underscore": "^1.9.2"
   },
