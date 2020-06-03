@@ -96,11 +96,7 @@ module.exports = ( function() {
             master: member.master
           }
 
-          if( finded && obj ) {
-
-            result = await Members.findOneAndUpdate( query, obj );
-
-          } else if( obj ) {
+          if( !finded && obj ) {
 
             let member = await Members( obj );
 
@@ -119,8 +115,46 @@ module.exports = ( function() {
 
         }
 
+      },
+      update: async function( id, member ) {
+
+        let result = false;
+
+        try {
+
+          console.log( id );
+
+          let query = { '_id': id };
+
+          let finded = await Members.findOne( query );
+
+          console.log( 'finded' );
+          console.log( finded );
+
+          let obj = {
+            name: member.name,
+            master: member.master
+          }
+
+          if( finded && obj ) {
+
+            result = await Members.findOneAndUpdate( query, obj );
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO update' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
+
       }
-    };
+    }
 
   }
 

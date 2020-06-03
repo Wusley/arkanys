@@ -15,8 +15,6 @@ module.exports = ( app, mongoose ) => {
 
       let list = await memberDAO.gestList();
 
-      console.log( list );
-
       res.render('panel', {
         title: 'ARKANYS',
         members: list,
@@ -41,30 +39,35 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
+      console.log( req.body );
+
       if( req.body.name ) {
 
-        await memberDAO.create( {
-          name: req.body.name,
-          master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
-        } );
+        if( req.body.id ) {
 
-        let list = await memberDAO.gestList();
+          console.log( 'aqui' );
 
-        res.render('panel', {
-          title: 'ARKANYS',
-          members: list,
-          cod: 200
-        });
+          await memberDAO.update( req.body.id, {
+            name: req.body.name,
+            master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
+          } );
+
+        } else {
+
+          await memberDAO.create( {
+            name: req.body.name,
+            master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
+          } );
+
+        }
+
+        res.redirect( '/painel' );
 
       } else {
 
         console.error( 'member Error' );
 
-        res.render('panel', {
-          title: 'ARKANYS Lider',
-          name: false,
-          cod: 500
-        });
+        res.redirect( '/painel' );
 
       }
 

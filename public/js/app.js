@@ -23,4 +23,24 @@
 
 		} );
 
+		$( '#modal-member' )
+			.on( 'show.bs.modal', function( event ) {
+
+				var modal = $( this ),
+						button = $( event.relatedTarget );
+
+			  var name = button.data( 'name' ),
+			  		id = button.data( 'id' ),
+			  		master = button.data( 'master' ),
+						title = button.data( 'title' ) || modal.find( '.modal-title' ).data( 'default' );
+
+
+				modal.find( '.modal-title' ).text( title );
+			  modal.find( 'form input[name=id]' ).val( id );
+			  modal.find( 'form input[name=name]' ).val( name );
+			  modal.find( 'form input[name=master]' ).prop("checked", Boolean( master ) );
+
+				console.log( $( 'form ') );
+			} );
+
 	} );
