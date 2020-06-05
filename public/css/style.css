@@ -50,9 +50,6 @@ table {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased; }
 
-a {
-  text-decoration: none; }
-
 em {
   font-style: italic; }
 
@@ -77,6 +74,7 @@ h2 {
   font-size: 34px; }
 
 a {
+  text-decoration: none;
   color: #e4453f;
   transition-duration: .3s; }
   a:hover {

@@ -5,10 +5,15 @@ module.exports = ( function() {
 
   function memberDAO( mongoose ) {
 
-    let schema = require( '../Models/Member' ),
-        Schema = mongoose.Schema( schema );
+    var ObjectId = require( 'mongoose' ).Types.ObjectId;
 
-    let Members = mongoose.models.Members || mongoose.model( 'Members', Schema );
+    let schemaMember = require( '../Models/Member' ),
+        schemaRequestMaster = require( '../Models/RequestMaster' ),
+        SchemaMember = mongoose.Schema( schemaMember ),
+        SchemaRequestMaster = mongoose.Schema( schemaRequestMaster );
+
+    let Members = mongoose.models.Members || mongoose.model( 'Members', SchemaMember );
+    let RequestsMasters = mongoose.models.RequestsMasters || mongoose.model( 'RequestsMasters', SchemaRequestMaster );
 
   	return {
       getName: async function( name ) {
@@ -49,11 +54,12 @@ module.exports = ( function() {
 
         try {
 
-          let member = await Members.findOne( {
+          let masters = await Members.find( {
+            'name': { $exists: true },
             master: true
           } );
 
-          return member;
+          return masters;
 
         } catch ( err ) {
 
@@ -63,19 +69,38 @@ module.exports = ( function() {
         }
 
       },
-      getMasters: async function( master ) {
+      getRequestsMasters: async function( memberName ) {
 
         try {
 
-          let member = await Members.findOne( {
-            master: true
-          } );
+          let query = { 'name': { $regex: memberName, $options: 'i' } };
 
-          return member;
+          let member = await Members.findOne( query );
+
+          let queryRequestsMasters = { 'memberId': member._id };
+
+          let requestsMasters = await RequestsMasters.find( queryRequestsMasters );
+
+          let masters = [];
+
+          let count = 0;
+          for( ; count < requestsMasters.length ; count++ ) {
+
+            let infoMaster = await Members.findOne( { _id: requestsMasters[ count ].masterId } );
+
+            infoMaster.date = requestsMasters[ count ].date;
+
+            masters.push( infoMaster );
+
+          }
+
+          console.log( masters );
+
+          return masters;
 
         } catch ( err ) {
 
-          console.error( 'memberDAO getMasters' );
+          console.error( 'memberDAO getRequestsMasters' );
           console.error( err );
 
         }
@@ -122,14 +147,9 @@ module.exports = ( function() {
 
         try {
 
-          console.log( id );
-
           let query = { '_id': id };
 
           let finded = await Members.findOne( query );
-
-          console.log( 'finded' );
-          console.log( finded );
 
           let obj = {
             name: member.name,
@@ -153,6 +173,41 @@ module.exports = ( function() {
 
         }
 
+      },
+      requestMaster: async function( masterId, name ) {
+
+        let result = false;
+
+        try {
+          let queryMaster = { '_id': new ObjectId( masterId ), 'master': true };
+          let queryMember = { name: { $regex: name, $options: 'i' }, $and: [ { $or: [ { yourMasterId: '' }, { yourMasterId: null } ] } ] }; // <- yourMasterId blank because he need only one master
+
+          let findedMaster = await Members.findOne( queryMaster );
+          let findedMember = await Members.findOne( queryMember );
+
+          let obj = {
+            memberId: findedMember._id,
+            masterId: findedMaster._id
+          }
+
+          if( findedMaster && findedMember && obj ) {
+
+            let requestsMasters = await RequestsMasters( obj );
+
+            result = await requestsMasters.save();
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO requestMaster' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
       }
     }
 

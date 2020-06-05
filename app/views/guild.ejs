@@ -10,24 +10,25 @@
 
     <main>
       <section class="wrap-content">
-        <h2>Painel Guild</h2>
+        <h2>Painel Clã</h2>
 
         <button type="button" class="btn btn-dark col-12" data-toggle="modal" data-target="#modal-member">Clique para adicionar membro</button>
 
         <table class="table table-hover">
           <caption style="caption-side: top;">Total de membros <%= members.length %></caption>
           <thead>
-            <tr>
+            <tr class="bg-light">
               <th scope="col">Mestre</th>
               <th class="col-1" scope="col">Nick</th>
               <th scope="col"></th>
             </tr>
           </thead>
+          
           <tbody>
             <% for(var i = 0; i < members.length; i++) { %>
               <tr>
-                <th scope="row"><%= members[ i ].master == true ? 'Sim' : 'Não' %></th>
-                <td><%= members[ i ].name %></td>
+                <th scope="row" class="<%= members[ i ].master == true ? 'text-success' : '' %>"><%= members[ i ].master == true ? 'Sim' : 'Não' %></th>
+                <td><a href="/membro/<%= members[ i ].name %>"><%= members[ i ].name %></a></td>
                 <td scope="row">
                   <button type="button" class="btn btn-light"
                     data-title="Editar membro"

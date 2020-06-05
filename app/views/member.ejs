@@ -1,0 +1,82 @@
+<% include header %>
+
+<!doctype html>
+<html lang="en">
+  <% include head %>
+
+  <body id="rules">
+    <% include bg-shadow %>
+    <% include header %>
+
+    <main>
+      <section class="wrap-content">
+        <h2 style="text-align: left;">Perfil: <%= name %></h2>
+
+        <button type="button" class="btn btn-dark col-12" data-toggle="modal" data-target="#modal-member" data-name="<%= name %>">Clique aqui para enviar solicitação a um mestre</button>
+        <h6>Você pode enviar solicitação para mais de um mestre, assim você tem chance de conseguir um mestre mais rapidamente.</h6>
+
+        <div class="modal fade" id="modal-member" tabindex="-1" role="dialog" aria-labelledby="Member" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" data-default="Solicitar Mestre">Solicitar Mestre</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="/master/request" method="post">
+                <input type="hidden" class="form-control" name="name">
+
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="masterId" class="text-success">Mestres disponíveis:</label>
+                    <select class="form-control" id="masterId" name="masterId">
+                      <option value="">Selecione</option>
+
+                      <% for(var i = 0; i < masters.length; i++) { %>
+                        <option value="<%= masters[ i ]._id %>"><%= masters[ i ].name %></option>
+                      <% } %>
+                    </select>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <table class="table table-hover">
+          <caption style="caption-side: top;">Pedidos enviados pendentes <%= requestsMasters.length %></caption>
+          <thead>
+            <tr class="bg-light">
+              <th scope="col">Nick</th>
+              <th scope="col">Data</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% for(var i = 0; i < requestsMasters.length; i++) { %>
+              <tr>
+                <td><a href="/membro/<%= requestsMasters[ i ].name %>"><%= requestsMasters[ i ].name %></a></td>
+                <th scope="row" style="text-transform: capitalize;"><%= moment(requestsMasters[ i ].date ).locale( 'pt-br' ).format() %></th>
+                <td scope="row">
+                  <button type="button" class="btn btn-light" data-id="<%= requestsMasters[ i ]._id %>">
+                    Cancelar
+                  </button>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <% include footer %>
+  </body>
+
+  <% include scripts %>
+</html>
