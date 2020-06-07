@@ -12,11 +12,13 @@ module.exports = ( function() {
         SchemaMember = mongoose.Schema( schemaMember ),
         SchemaRequestMaster = mongoose.Schema( schemaRequestMaster );
 
+        // SchemaMember.add( { yourMasterId: 'string', yourDisciples: [ { id: { type: String } } ] } );
+
     let Members = mongoose.models.Members || mongoose.model( 'Members', SchemaMember );
     let RequestsMasters = mongoose.models.RequestsMasters || mongoose.model( 'RequestsMasters', SchemaRequestMaster );
 
   	return {
-      getName: async function( name ) {
+      getMemberByName: async function( name ) {
 
         try {
 
@@ -28,7 +30,23 @@ module.exports = ( function() {
 
         } catch ( err ) {
 
-          console.error( 'memberDAO getName' );
+          console.error( 'memberDAO getMemberByName' );
+          console.error( err );
+
+        }
+
+      },
+      getMemberById: async function( id ) {
+
+        try {
+
+          let member = await Members.findOne( { '_id': new ObjectId( id ) } );
+
+          return member;
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO getMemberById' );
           console.error( err );
 
         }
@@ -81,26 +99,51 @@ module.exports = ( function() {
 
           let requestsMasters = await RequestsMasters.find( queryRequestsMasters );
 
-          let masters = [];
-
           let count = 0;
           for( ; count < requestsMasters.length ; count++ ) {
 
             let infoMaster = await Members.findOne( { _id: requestsMasters[ count ].masterId } );
 
-            infoMaster.date = requestsMasters[ count ].date;
-
-            masters.push( infoMaster );
+            requestsMasters[ count ].infoMaster = infoMaster;
 
           }
 
-          console.log( masters );
-
-          return masters;
+          return requestsMasters;
 
         } catch ( err ) {
 
           console.error( 'memberDAO getRequestsMasters' );
+          console.error( err );
+
+        }
+
+      },
+      getRequestsPendings: async function( memberName ) {
+
+        try {
+
+          let query = { 'name': { $regex: memberName, $options: 'i' } };
+
+          let member = await Members.findOne( query );
+
+          let queryRequestsMasters = { 'masterId': member._id };
+
+          let requestsMasters = await RequestsMasters.find( queryRequestsMasters );
+
+          let count = 0;
+          for( ; count < requestsMasters.length ; count++ ) {
+
+            let infoMember = await Members.findOne( { _id: requestsMasters[ count ].memberId } );
+
+            requestsMasters[ count ].infoMember = infoMember;
+
+          }
+
+          return requestsMasters;
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO getRequestsPendings' );
           console.error( err );
 
         }
@@ -184,17 +227,110 @@ module.exports = ( function() {
 
           let findedMaster = await Members.findOne( queryMaster );
           let findedMember = await Members.findOne( queryMember );
+          let findedRequest = await RequestsMasters.find( { 'masterId': findedMaster._id } );
 
-          let obj = {
-            memberId: findedMember._id,
-            masterId: findedMaster._id
+          // pode seguir caso ainda não tenha feito um registro como esse e também os usuários não sejam os mesmos
+          if( ( !findedRequest || findedRequest.length === 0 ) && findedMaster.name !== findedMember.name ) {
+
+            // usuarios encontrados
+            if( findedMaster && findedMember ) {
+
+              let obj = {
+                memberId: findedMember._id,
+                masterId: findedMaster._id
+              }
+
+              let requestsMasters = await RequestsMasters( obj );
+
+              result = requestsMasters.save();
+
+            }
+
+          } else {
+
+            result = findedRequest;
+
           }
 
-          if( findedMaster && findedMember && obj ) {
+        } catch ( err ) {
 
-            let requestsMasters = await RequestsMasters( obj );
+          console.error( 'memberDAO requestMaster' );
+          console.error( err );
 
-            result = await requestsMasters.save();
+        } finally {
+
+          return result;
+
+        }
+      },
+      acceptRequestMaster: async function( id ) {
+
+        let result = false;
+
+        try {
+          let queryRequest = { '_id': new ObjectId( id ) };
+          let findedRequest = await RequestsMasters.findOne( queryRequest );
+
+          if( findedRequest ) {
+
+            let queryMember = { _id: findedRequest.memberId };
+            let queryMaster = { _id: findedRequest.masterId };
+
+            let yourDisciples = await Members.findOne( queryMaster )
+                                                .where( {
+                                                  'yourDisciples': {
+                                                    $elemMatch: { id: findedRequest.memberId }
+                                                  }
+                                                } );
+
+            if( !yourDisciples ) {
+
+              let findedMaster = await Members
+                              .findOneAndUpdate( queryMaster, {
+                                $push: {
+                                  'yourDisciples': {
+                                    id: findedRequest.memberId
+                                  }
+                                }
+                              } );
+
+              let findedMember = await Members.findOneAndUpdate( queryMember, { yourMasterId: findedRequest.masterId } );
+
+              if( findedMember && findedMaster ) {
+
+                await RequestsMasters.deleteOne( queryRequest );
+
+                result = { member: findedMember, master: findedMaster };
+
+              }
+
+            }
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO acceptRequestMaster' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
+      },
+      cancelRequestMaster: async function( id ) {
+
+        let result = false;
+
+        try {
+          let query = { '_id': new ObjectId( id ) };
+
+          let deletedRequest = await RequestsMasters.deleteOne( query );
+
+          if( deletedRequest ) {
+
+            result = deletedRequest;
 
           }
 
