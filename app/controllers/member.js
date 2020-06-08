@@ -56,6 +56,8 @@ module.exports = ( app, mongoose ) => {
 
       }
 
+      let availableDisciples = await memberDAO.getAvailableDisciples();
+
       let master = ( member.yourMasterId && member.yourMasterId !== '' ) ? await memberDAO.getMemberById( member.yourMasterId ) : false;
 
       let masters = await memberDAO.getMasters();
@@ -104,6 +106,7 @@ module.exports = ( app, mongoose ) => {
         disciples: disciples.length > 0 ? disciples : false,
         master: master || false,
         masters: result || false,
+        availableDisciples: availableDisciples || false,
         moment: moment,
         requestsMasters: requestsMasters || false,
         requestsPendings: requestsPendings || false,
@@ -172,9 +175,9 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body.name && req.body.masterId ) {
+      if( req.body.name && req.body[ 'master-id' ] ) {
 
-        await memberDAO.requestMaster( req.body.masterId, req.body.name );
+        await memberDAO.requestMaster( req.body[ 'master-id' ], req.body.name );
 
         res.redirect( '/membro/' + req.body.name );
 
@@ -247,6 +250,35 @@ module.exports = ( app, mongoose ) => {
     } catch( err ) {
 
       console.error( 'master request cancel-refuse' );
+      console.error( err );
+
+      res.redirect( '/membro/' + req.body.name );
+
+    }
+
+  } );
+
+  router.post( '/master/unlink', cors, async ( req, res, next ) => {
+
+    try {
+
+      if( req.body[ 'master-id' ] && req.body[ 'member-id' ] ) {
+
+        await memberDAO.unlinkMaster( req.body[ 'master-id' ], req.body[ 'member-id' ] );
+
+        res.redirect( '/membro/' + req.body.name );
+
+      } else {
+
+        console.error( 'master unlink' );
+
+        res.redirect( '/membro/' + req.body.name );
+
+      }
+
+    } catch( err ) {
+
+      console.error( 'master request' );
       console.error( err );
 
       res.redirect( '/membro/' + req.body.name );

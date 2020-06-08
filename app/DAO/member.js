@@ -52,6 +52,22 @@ module.exports = ( function() {
         }
 
       },
+      getAvailableDisciples: async function() {
+
+        try {
+
+          let disciples = await Members.find( { $or: [ { yourMasterId: '' }, { yourMasterId: null }, { yourMasterId: false } ] } );
+
+          return disciples;
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO getMemberById' );
+          console.error( err );
+
+        }
+
+      },
       gestList: async function() {
 
         try {
@@ -311,6 +327,60 @@ module.exports = ( function() {
         } catch ( err ) {
 
           console.error( 'memberDAO acceptRequestMaster' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
+      },
+      unlinkMaster: async function( masterId, memberId ) {
+
+        let result = false;
+
+        try {
+          let queryMember = { '_id': new ObjectId( memberId ) };
+          let queryMaster = { '_id': new ObjectId( masterId ) };
+
+          let findedDisciples = await Members.findOne( queryMaster )
+                                              .where( {
+                                                'yourDisciples': {
+                                                  $elemMatch: { id: memberId }
+                                                }
+                                              } );
+
+          let findedMaster = await Members.findOne( queryMember )
+                                              .where( { 'yourMasterId': masterId } );
+
+          if( findedDisciples && findedMaster ) {
+
+
+
+            findedMaster = await Members
+                                      .findOneAndUpdate( queryMaster, {
+                                        $pull: {
+                                          'yourDisciples': {
+                                            id: memberId
+                                          }
+                                        }
+                                      } );
+
+            let findedMember = await Members.findOneAndUpdate( queryMember, { yourMasterId: '' } );
+
+            if( findedMember && findedMaster ) {
+
+              result = { member: findedMember, master: findedMaster };
+
+              console.log( result );
+
+            }
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO unlinkMaster' );
           console.error( err );
 
         } finally {

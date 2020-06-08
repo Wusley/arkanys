@@ -13,38 +13,84 @@
         <h2 style="text-align: left;">Perfil: <%= member.name %></h2>
 
         <% if( !member.yourMasterId || member.yourMasterId === '' ) { %>
-          <button type="button" class="btn btn-dark col-12" data-toggle="modal" data-target="#modal-member" data-name="<%= name %>">Clique aqui para conseguir um mestre</button>
+          <button type="button" class="btn btn-dark col-12" data-toggle="modal" data-target="#modal-master" data-name="<%= name %>">Clique aqui para conseguir um mestre</button>
           <h6><%= member.name %> você pode enviar mais de uma solicitação, assim você tem mais chances de conseguir um mestre.</h6>
+
+          <div class="modal fade" id="modal-master" tabindex="-1" role="dialog" aria-labelledby="Master" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" data-default="Solicitar Mestre">Solicitar Mestre</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/master/request" method="post">
+                  <input type="hidden" class="form-control" name="name">
+
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <% if( masters.length > 0 ) { %>
+
+                        <label for="master-id" class="text-success">Mestres disponíveis:</label>
+                        <select class="form-control" id="master-id" name="master-id">
+                          <option value="">Selecione</option>
+
+                          <% for(var i = 0; i < masters.length; i++) { %>
+                            <option value="<%= masters[ i ]._id %>"><%= masters[ i ].name %></option>
+                          <% } %>
+                        </select>
+
+                      <% } else { %>
+
+                        <label for="master-id" class="text-danger">Você já enviou solicitação para todos os mestres disponíveis.</label>
+
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         <% } %>
+
+        <button type="button" class="btn btn-dark col-12" data-toggle="modal" data-target="#modal-member" data-name="<%= name %>">Clique aqui para conseguir um aprendiz</button>
+        <h6><%= member.name %> você pode enviar mais de uma solicitação, assim você tem mais chances de conseguir seu aprendiz.</h6>
 
         <div class="modal fade" id="modal-member" tabindex="-1" role="dialog" aria-labelledby="Member" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" data-default="Solicitar Mestre">Solicitar Mestre</h5>
+                <h5 class="modal-title" data-default="Solicitar Mestre">Solicitar Aprendiz</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form action="/master/request" method="post">
+              <form action="/disciple/request" method="post">
                 <input type="hidden" class="form-control" name="name">
 
                 <div class="modal-body">
                   <div class="form-group">
-                    <% if( masters.length > 0 ) { %>
+                    <% if( availableDisciples.length > 0 ) { %>
 
-                      <label for="masterId" class="text-success">Mestres disponíveis:</label>
-                      <select class="form-control" id="masterId" name="masterId">
+                      <label for="disciple-id" class="text-success">Aprendizes disponíveis:</label>
+                      <select class="form-control" id="disciple-id" name="disciple-id">
                         <option value="">Selecione</option>
 
-                        <% for(var i = 0; i < masters.length; i++) { %>
-                          <option value="<%= masters[ i ]._id %>"><%= masters[ i ].name %></option>
+                        <% for(var i = 0; i < availableDisciples.length; i++) { %>
+                          <% if( availableDisciples[ i ].name !== member.name ) { %>
+                            <option value="<%= availableDisciples[ i ]._id %>"><%= availableDisciples[ i ].name %></option>
+                          <% } %>
                         <% } %>
                       </select>
 
                     <% } else { %>
 
-                      <label for="masterId" class="text-danger">Você já enviou solicitação para todos os mestres disponíveis.</label>
+                      <label for="disciple-id" class="text-danger">Você já enviou solicitação para todos os aprendizes disponíveis.</label>
 
                     <% } %>
                   </div>
@@ -57,6 +103,7 @@
             </div>
           </div>
         </div>
+
 
         <br /> <br />
 
@@ -190,38 +237,12 @@
           </div>
         <% } %>
 
-        <% if( disciples && disciples.length > 0 ) { %>
-
-          <h2>Aprendizes</h2>
-
-          <% for(var i = 0; i < disciples.length; i++) { %>
-            <div class="card mb-3" style="max-width: 540px;">
-              <div class="row no-gutters">
-                <div class="col-md-4">
-                  <img src="/img/thumbs/disciple-boy-1.jpg" class="card-img" alt="">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body d-flex flex-column justify-content-between" style="height: 100%;">
-                    <h3 class="card-title"><%= disciples[ i ].name %></h3>
-
-                    <a href="/membro/<%= disciples[ i ].name %>" class="btn btn-secondary">Visitar perfil</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Cancelar aprendiz -->
-
-          <% } %>
-
-        <% } %>
-
         <% if( member.yourMasterId && member.yourMasterId !== '' ) { %>
 
           <h2>Mestre</h2>
-          <div class="card mb-3" style="max-width: 540px;">
+          <div class="card mb-3" style="max-width: 100%;">
             <div class="row no-gutters">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <img src="/img/thumbs/master-boy-1.jpg" class="card-img" alt="">
               </div>
               <div class="col-md-8">
@@ -231,10 +252,90 @@
                   <a href="/membro/<%= master.name %>" class="btn btn-secondary">Visitar perfil</a>
                 </div>
               </div>
+              <div class="col-md-1 d-flex align-items-stretch justify-content-end ">
+                <button type="button" class="d-flex align-items-center justify-content-center w-100 btn btn-danger display-1 rounded-right" style="font-size: 24px;" data-member-id="<%= member._id %>" data-master-id="<%= master._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-unlink-master">
+                  &times;
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Cancelar mestre -->
+          <div class="modal fade" id="modal-unlink-master" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header alert-info" role="alert">
+                  <span class="align-middle">Tem certeza que deseja se desvinvular do seu mestre?</span>
+
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/master/unlink" method="post">
+                  <input type="hidden" class="form-control" name="member-id">
+                  <input type="hidden" class="form-control" name="master-id">
+                  <input type="hidden" class="form-control" name="name">
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        <% } %>
+
+        <% if( disciples && disciples.length > 0 ) { %>
+
+          <h2>Aprendizes</h2>
+
+          <% for(var i = 0; i < disciples.length; i++) { %>
+            <div class="card mb-3" style="max-width: 100%;">
+              <div class="row no-gutters">
+                <div class="col-md-3">
+                  <img src="/img/thumbs/disciple-boy-1.jpg" class="card-img" alt="">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body d-flex flex-column justify-content-between" style="height: 100%;">
+                    <h3 class="card-title"><%= disciples[ i ].name %></h3>
+
+                    <a href="/membro/<%= disciples[ i ].name %>" class="btn btn-secondary">Visitar perfil</a>
+                  </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-stretch justify-content-end ">
+                  <button type="button" class="d-flex align-items-center justify-content-center w-100 btn btn-danger display-1 rounded-right" style="font-size: 24px;" data-member-id="<%= disciples[ i ]._id %>" data-master-id="<%= member._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-unlink-member">
+                    &times;
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          <% } %>
+
+          <div class="modal fade" id="modal-unlink-member" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header alert-info" role="alert">
+                  <span class="align-middle">Tem certeza que deseja se desvinvular do seu aprendiz?</span>
+
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/master/unlink" method="post">
+                  <input type="hidden" class="form-control" name="member-id">
+                  <input type="hidden" class="form-control" name="master-id">
+                  <input type="hidden" class="form-control" name="name">
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
 
         <% } %>
 
