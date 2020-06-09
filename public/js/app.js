@@ -23,6 +23,8 @@
 
 		} );
 
+		$('[data-tooltip="true"]').tooltip()
+
 		$( '#modal-master, #modal-member' )
 			.on( 'show.bs.modal', function( event ) {
 				var modal = $( this ),
@@ -31,17 +33,21 @@
 			  var name = button.data( 'name' ),
 			  		id = button.data( 'id' ),
 			  		master = button.data( 'master' ),
+			  		masterId = button.data( 'master-id' ),
+			  		memberId = button.data( 'member-id' ),
 						title = button.data( 'title' ) || modal.find( '.modal-title' ).data( 'default' );
 
 				modal.find( '.modal-title' ).text( title );
 			  modal.find( 'form input[name=id]' ).val( id );
 			  modal.find( 'form input[name=name]' ).val( name );
+			  modal.find( 'form input[name=master-id]' ).val( masterId );
+			  modal.find( 'form input[name=member-id]' ).val( memberId );
 			  modal.find( 'form input[name=master]' ).prop("checked", Boolean( master ) );
 
 				console.log( $( 'form ') );
 			} );
 
-		$( '#modal-confirm-cancel-master, #modal-accept-member, #modal-refuse-member, #modal-unlink-member, #modal-unlink-master' )
+		$( '#modal-confirm-cancel-master, #modal-confirm-cancel-disciple, #modal-accept-member, #modal-accept-master, #modal-refuse-member, #modal-refuse-master, #modal-unlink-member, #modal-unlink-master' )
 			.on( 'show.bs.modal', function( event ) {
 
 				var modal = $( this ),

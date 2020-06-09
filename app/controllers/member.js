@@ -62,10 +62,13 @@ module.exports = ( app, mongoose ) => {
 
       let masters = await memberDAO.getMasters();
 
-      let requestsMasters = await memberDAO.getRequestsMasters( req.params.name );
-      let requestsPendings = await memberDAO.getRequestsPendings( req.params.name );
+      let requestsDisciples = await memberDAO.getRequestsDisciples( req.params.name ); // pedidos enviados aos aprendizes
+      let requestsPendingsDisciples = await memberDAO.getRequestsPendingsDisciples( req.params.name ); // pedidos recebidos dos mestres
 
-      let result = [];
+      let requestsMasters = await memberDAO.getRequestsMasters( req.params.name ); // pedidos enviados aos mestres
+      let requestsPendings = await memberDAO.getRequestsPendings( req.params.name ); // pedidos recebidos dos aprendizes
+
+      let availableMasters = [];
 
       _.map( masters, ( master ) => {
 
@@ -90,7 +93,7 @@ module.exports = ( app, mongoose ) => {
 
         if( !status ) {
 
-          result.push( master );
+          availableMasters.push( master );
 
         } else {
 
@@ -105,10 +108,12 @@ module.exports = ( app, mongoose ) => {
         member: member || false,
         disciples: disciples.length > 0 ? disciples : false,
         master: master || false,
-        masters: result || false,
+        availableMasters: availableMasters || false,
         availableDisciples: availableDisciples || false,
         moment: moment,
+        requestsDisciples: requestsDisciples || false,
         requestsMasters: requestsMasters || false,
+        requestsPendingsDisciples: requestsPendingsDisciples || false,
         requestsPendings: requestsPendings || false,
         name: req.params.name,
         cod: 200
@@ -175,9 +180,40 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body.name && req.body[ 'master-id' ] ) {
+      if( req.body[ 'member-id' ] && req.body[ 'master-id' ] ) {
 
-        await memberDAO.requestMaster( req.body[ 'master-id' ], req.body.name );
+        await memberDAO.requestMaster( req.body[ 'master-id' ], req.body[ 'member-id' ] );
+
+        res.redirect( '/membro/' + req.body.name );
+
+      } else {
+
+        console.error( 'master request Error' );
+
+        res.redirect( '/membro/' + req.body.name );
+
+      }
+
+    } catch( err ) {
+
+      console.error( 'master request' );
+      console.error( err );
+
+      res.redirect( '/membro/' + req.body.name );
+
+    }
+
+  } );
+
+  router.post( '/disciple/request', cors, async ( req, res, next ) => {
+
+    try {
+
+      console.log( req.body );
+
+      if( req.body[ 'disciple-id' ] && req.body[ 'master-id' ] ) {
+
+        await memberDAO.requestDisciple( req.body[ 'disciple-id' ], req.body[ 'master-id' ] );
 
         res.redirect( '/membro/' + req.body.name );
 
@@ -229,6 +265,35 @@ module.exports = ( app, mongoose ) => {
 
   } );
 
+  router.post( '/disciple/request/accept', cors, async ( req, res, next ) => {
+
+    try {
+
+      if( req.body.id ) {
+
+        await memberDAO.acceptRequestDisciple( req.body.id );
+
+        res.redirect( '/membro/' + req.body.name );
+
+      } else {
+
+        console.error( 'disciple request accept Error' );
+
+        res.redirect( '/membro/' + req.body.name );
+
+      }
+
+    } catch( err ) {
+
+      console.error( 'master request' );
+      console.error( err );
+
+      res.redirect( '/membro/' + req.body.name );
+
+    }
+
+  } );
+
   router.post( [ '/master/request/cancel', '/master/request/refuse' ], cors, async ( req, res, next ) => {
 
     try {
@@ -250,6 +315,35 @@ module.exports = ( app, mongoose ) => {
     } catch( err ) {
 
       console.error( 'master request cancel-refuse' );
+      console.error( err );
+
+      res.redirect( '/membro/' + req.body.name );
+
+    }
+
+  } );
+
+  router.post( [ '/disciple/request/cancel', '/disciple/request/refuse' ], cors, async ( req, res, next ) => {
+
+    try {
+
+      if( req.body.id ) {
+
+        await memberDAO.cancelRequestDisciple( req.body.id );
+
+        res.redirect( '/membro/' + req.body.name );
+
+      } else {
+
+        console.error( 'disciple request cancel-refuse Error' );
+
+        res.redirect( '/membro/' + req.body.name );
+
+      }
+
+    } catch( err ) {
+
+      console.error( 'disciple request cancel-refuse' );
       console.error( err );
 
       res.redirect( '/membro/' + req.body.name );

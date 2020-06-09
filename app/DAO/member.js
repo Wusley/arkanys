@@ -9,13 +9,16 @@ module.exports = ( function() {
 
     let schemaMember = require( '../Models/Member' ),
         schemaRequestMaster = require( '../Models/RequestMaster' ),
+        schemaRequestDisciple = require( '../Models/RequestDisciple' ),
         SchemaMember = mongoose.Schema( schemaMember ),
-        SchemaRequestMaster = mongoose.Schema( schemaRequestMaster );
+        SchemaRequestMaster = mongoose.Schema( schemaRequestMaster ),
+        SchemaRequestDisciple = mongoose.Schema( schemaRequestDisciple );
 
         // SchemaMember.add( { yourMasterId: 'string', yourDisciples: [ { id: { type: String } } ] } );
 
     let Members = mongoose.models.Members || mongoose.model( 'Members', SchemaMember );
     let RequestsMasters = mongoose.models.RequestsMasters || mongoose.model( 'RequestsMasters', SchemaRequestMaster );
+    let RequestsDisciples = mongoose.models.RequestsDisciples || mongoose.model( 'RequestsDisciples', SchemaRequestDisciple );
 
   	return {
       getMemberByName: async function( name ) {
@@ -134,6 +137,37 @@ module.exports = ( function() {
         }
 
       },
+      getRequestsDisciples: async function( memberName ) {
+
+        try {
+
+          let query = { 'name': { $regex: memberName, $options: 'i' } };
+
+          let member = await Members.findOne( query );
+
+          let queryRequestsDisciples = { 'masterId': member._id };
+
+          let requestsDisciples = await RequestsDisciples.find( queryRequestsDisciples );
+
+          let count = 0;
+          for( ; count < requestsDisciples.length ; count++ ) {
+
+            let infoDisciples = await Members.findOne( { _id: requestsDisciples[ count ].memberId } );
+
+            requestsDisciples[ count ].infoDisciple = infoDisciples;
+
+          }
+
+          return requestsDisciples;
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO getRequestsDisciples' );
+          console.error( err );
+
+        }
+
+      },
       getRequestsPendings: async function( memberName ) {
 
         try {
@@ -160,6 +194,37 @@ module.exports = ( function() {
         } catch ( err ) {
 
           console.error( 'memberDAO getRequestsPendings' );
+          console.error( err );
+
+        }
+
+      },
+      getRequestsPendingsDisciples: async function( memberName ) {
+
+        try {
+
+          let query = { 'name': { $regex: memberName, $options: 'i' } };
+
+          let member = await Members.findOne( query );
+
+          let queryRequestsDisciples = { 'memberId': member._id };
+
+          let requestsDisciples = await RequestsDisciples.find( queryRequestsDisciples );
+
+          let count = 0;
+          for( ; count < requestsDisciples.length ; count++ ) {
+
+            let infoMaster = await Members.findOne( { _id: requestsDisciples[ count ].masterId } );
+
+            requestsDisciples[ count ].infoMaster = infoMaster;
+
+          }
+
+          return requestsDisciples;
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO getRequestsPendingsDisciples' );
           console.error( err );
 
         }
@@ -233,17 +298,17 @@ module.exports = ( function() {
         }
 
       },
-      requestMaster: async function( masterId, name ) {
+      requestMaster: async function( masterId, memberId ) {
 
         let result = false;
 
         try {
           let queryMaster = { '_id': new ObjectId( masterId ), 'master': true };
-          let queryMember = { name: { $regex: name, $options: 'i' }, $and: [ { $or: [ { yourMasterId: '' }, { yourMasterId: null } ] } ] }; // <- yourMasterId blank because he need only one master
+          let queryMember = { '_id': new ObjectId( memberId ), $and: [ { $or: [ { yourMasterId: '' }, { yourMasterId: null } ] } ] }; // <- yourMasterId blank because he need only one master
 
           let findedMaster = await Members.findOne( queryMaster );
           let findedMember = await Members.findOne( queryMember );
-          let findedRequest = await RequestsMasters.find( { 'masterId': findedMaster._id } );
+          let findedRequest = await RequestsMasters.find( { $and: [ { 'masterId': findedMaster._id }, { 'memberId': findedMember._id } ] } );
 
           // pode seguir caso ainda não tenha feito um registro como esse e também os usuários não sejam os mesmos
           if( ( !findedRequest || findedRequest.length === 0 ) && findedMaster.name !== findedMember.name ) {
@@ -271,6 +336,52 @@ module.exports = ( function() {
         } catch ( err ) {
 
           console.error( 'memberDAO requestMaster' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
+      },
+      requestDisciple: async function( discipleId, masterId ) {
+
+        let result = false;
+
+        try {
+          let queryMaster = { '_id': new ObjectId( masterId ), 'master': true };
+          let queryMember = { '_id': new ObjectId( discipleId ), $and: [ { $or: [ { yourMasterId: '' }, { yourMasterId: null } ] } ] }; // <- yourMasterId blank because he need only one master
+
+          let findedMaster = await Members.findOne( queryMaster );
+          let findedMember = await Members.findOne( queryMember );
+          let findedRequest = await RequestsDisciples.find( { $and: [ { 'masterId': findedMaster._id }, { 'memberId': findedMember._id } ] } );
+
+          // pode seguir caso ainda não tenha feito um registro como esse e também os usuários não sejam os mesmos
+          if( ( !findedRequest || findedRequest.length === 0 ) && findedMaster.name !== findedMember.name ) {
+
+            // usuarios encontrados
+            if( findedMaster && findedMember ) {
+
+              let obj = {
+                memberId: findedMember._id,
+                masterId: findedMaster._id
+              }
+
+              let requestsDisciples = await RequestsDisciples( obj );
+
+              result = requestsDisciples.save();
+
+            }
+
+          } else {
+
+            result = findedRequest;
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO requestDisciple' );
           console.error( err );
 
         } finally {
@@ -327,6 +438,62 @@ module.exports = ( function() {
         } catch ( err ) {
 
           console.error( 'memberDAO acceptRequestMaster' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
+      },
+      acceptRequestDisciple: async function( id ) {
+
+        let result = false;
+
+        try {
+          let queryRequest = { '_id': new ObjectId( id ) };
+          let findedRequest = await RequestsDisciples.findOne( queryRequest );
+
+          if( findedRequest ) {
+
+            let queryMember = { _id: findedRequest.memberId };
+            let queryMaster = { _id: findedRequest.masterId };
+
+            let yourDisciples = await Members.findOne( queryMaster )
+                                                .where( {
+                                                  'yourDisciples': {
+                                                    $elemMatch: { id: findedRequest.memberId }
+                                                  }
+                                                } );
+
+            if( !yourDisciples ) {
+
+              let findedMaster = await Members
+                              .findOneAndUpdate( queryMaster, {
+                                $push: {
+                                  'yourDisciples': {
+                                    id: findedRequest.memberId
+                                  }
+                                }
+                              } );
+
+              let findedMember = await Members.findOneAndUpdate( queryMember, { yourMasterId: findedRequest.masterId } );
+
+              if( findedMember && findedMaster ) {
+
+                await RequestsDisciples.deleteOne( queryRequest );
+
+                result = { member: findedMember, master: findedMaster };
+
+              }
+
+            }
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO acceptRequestDisciple' );
           console.error( err );
 
         } finally {
@@ -406,7 +573,33 @@ module.exports = ( function() {
 
         } catch ( err ) {
 
-          console.error( 'memberDAO requestMaster' );
+          console.error( 'memberDAO cancelRequestMaster' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
+      },
+      cancelRequestDisciple: async function( id ) {
+
+        let result = false;
+
+        try {
+          let query = { '_id': new ObjectId( id ) };
+
+          let deletedRequest = await RequestsDisciples.deleteOne( query );
+
+          if( deletedRequest ) {
+
+            result = deletedRequest;
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO cancelRequestDisciple' );
           console.error( err );
 
         } finally {
