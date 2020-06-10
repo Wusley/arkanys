@@ -14,7 +14,7 @@ module.exports = ( function() {
         SchemaRequestMaster = mongoose.Schema( schemaRequestMaster ),
         SchemaRequestDisciple = mongoose.Schema( schemaRequestDisciple );
 
-        // SchemaMember.add( { yourMasterId: 'string', yourDisciples: [ { id: { type: String } } ] } );
+        SchemaMember.add( { whatsapp: 'string' } );
 
     let Members = mongoose.models.Members || mongoose.model( 'Members', SchemaMember );
     let RequestsMasters = mongoose.models.RequestsMasters || mongoose.model( 'RequestsMasters', SchemaRequestMaster );
@@ -87,7 +87,7 @@ module.exports = ( function() {
         }
 
       },
-      getMasters: async function( master ) {
+      getMasters: async function() {
 
         try {
 
@@ -242,6 +242,7 @@ module.exports = ( function() {
 
           let obj = {
             name: member.name,
+            whatsapp: member.whatsapp,
             master: member.master
           }
 
@@ -277,6 +278,7 @@ module.exports = ( function() {
 
           let obj = {
             name: member.name,
+            whatsapp: member.whatsapp,
             master: member.master
           }
 

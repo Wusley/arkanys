@@ -32,6 +32,7 @@
 
 			  var name = button.data( 'name' ),
 			  		id = button.data( 'id' ),
+			  		whatsapp = button.data( 'whatsapp' ),
 			  		master = button.data( 'master' ),
 			  		masterId = button.data( 'master-id' ),
 			  		memberId = button.data( 'member-id' ),
@@ -39,6 +40,7 @@
 
 				modal.find( '.modal-title' ).text( title );
 			  modal.find( 'form input[name=id]' ).val( id );
+			  modal.find( 'form input[name=whatsapp]' ).val( whatsapp );
 			  modal.find( 'form input[name=name]' ).val( name );
 			  modal.find( 'form input[name=master-id]' ).val( masterId );
 			  modal.find( 'form input[name=member-id]' ).val( memberId );

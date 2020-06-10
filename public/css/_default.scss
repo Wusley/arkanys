@@ -30,13 +30,13 @@ h2 {
   font-size: 34px;
 }
 
-a {
+.lnk {
 	text-decoration: none;
-  color: #e4453f;
+  color: #e4453f!important;
   transition-duration: .3s;
 
   &:hover {
-    color: white;
+    color: #555555!important;
   }
 }
 

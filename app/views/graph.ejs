@@ -1,0 +1,64 @@
+<section id="graph">
+    <h2>
+      Membros
+      <a class='pulse-button' href="/membros">
+        <svg viewBox="0 0 448 448" xmlns="http://www.w3.org/2000/svg"><path fill="white" d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/></svg>
+      </a>
+    </h2>
+
+    <!-- Resources -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <!-- Chart code -->
+    <script>
+      am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        var chart = am4core.create( "chartdiv", am4plugins_forceDirected.ForceDirectedTree );
+
+        var networkSeries = chart.series.push( new am4plugins_forceDirected.ForceDirectedSeries() );
+
+        networkSeries.dataFields.linkWith = "discipleMaster";
+        networkSeries.dataFields.name = "name";
+        networkSeries.dataFields.id = "name";
+        networkSeries.dataFields.value = "nvl";
+        networkSeries.dataFields.children = "disciples";
+
+        networkSeries.nodes.template.label.text = "{name}"
+        networkSeries.fontSize = 12;
+        networkSeries.linkWithStrength = 0;
+        networkSeries.maxLevels = 6;
+        networkSeries.manyBodyStrength = -16;
+        networkSeries.maxRadius = am4core.percent( 7 );
+
+        networkSeries.nodes.template.tooltipText = "{name}";
+        networkSeries.nodes.template.fillOpacity = 1;
+        networkSeries.nodes.template.label.hideOversized = true;
+        networkSeries.nodes.template.label.truncate = true;
+
+        var linkTemplate = networkSeries.links.template;
+        networkSeries.links.template.strokeWidth = 2;
+        var linkHoverState = linkTemplate.states.create("hover");
+        linkHoverState.properties.strokeOpacity = 1;
+        linkHoverState.properties.strokeWidth = 2;
+
+        networkSeries.nodes.template.events.on( 'hit', function( event ) {
+
+          window.location.href = window.location.href + 'membro/' + event.target.dataItem.name;
+
+        } );
+
+        networkSeries.data = <%- JSON.stringify( membersGraph ) %>;
+
+      } );
+    </script>
+
+    <!-- HTML -->
+    <div id="chartdiv"></div>
+</section>

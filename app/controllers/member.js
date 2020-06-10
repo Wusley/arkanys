@@ -143,6 +143,7 @@ module.exports = ( app, mongoose ) => {
 
           await memberDAO.update( req.body.id, {
             name: req.body.name,
+            whatsapp: req.body.whatsapp,
             master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
           } );
 
@@ -150,6 +151,7 @@ module.exports = ( app, mongoose ) => {
 
           await memberDAO.create( {
             name: req.body.name,
+            whatsapp: req.body.whatsapp,
             master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
           } );
 
@@ -380,4 +382,5 @@ module.exports = ( app, mongoose ) => {
     }
 
   } );
+  
 };
