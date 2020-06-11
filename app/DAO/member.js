@@ -65,7 +65,7 @@ module.exports = ( function() {
 
         } catch ( err ) {
 
-          console.error( 'memberDAO getMemberById' );
+          console.error( 'memberDAO getAvailableDisciples' );
           console.error( err );
 
         }

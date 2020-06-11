@@ -21,17 +21,17 @@ module.exports = ( app, mongoose ) => {
 
         let lenDisciples = masters[ countMasters ].yourDisciples.length;
 
-        let obj = {
-          'name': masters[ countMasters ].name,
-          'nvl': lenDisciples + 2,
-          'discipleMaster': [],
-          'disciples': []
-        }
+        if( ( masters[ countMasters ].yourDisciples && lenDisciples ) || ( masters[ countMasters ].yourMasterId && masters[ countMasters ].yourMasterId.length ) ) {
 
-        if( masters[ countMasters ].yourDisciples && masters[ countMasters ].yourDisciples.length ) {
+          let obj = {
+            'name': masters[ countMasters ].name,
+            'nvl': lenDisciples + 2,
+            'discipleMaster': [],
+            'disciples': []
+          }
 
           let countDisciples = 0;
-          for( ; countDisciples < masters[ countMasters ].yourDisciples.length ; countDisciples++ ) {
+          for( ; countDisciples < lenDisciples ; countDisciples++ ) {
 
             let disciple = await memberDAO.getMemberById( masters[ countMasters ].yourDisciples[ countDisciples ].id );
 
@@ -50,25 +50,26 @@ module.exports = ( app, mongoose ) => {
 
           }
 
+          data.push( obj );
         }
 
-        data.push( obj );
-
       }
 
-      let availableDisciples = await memberDAO.getAvailableDisciples();
-
-      let countAvailableDisciples = 0;
-      for( ; countAvailableDisciples < availableDisciples.length ; countAvailableDisciples++ ) {
-
-        data.push( {
-          'name': availableDisciples[ countAvailableDisciples ].name,
-          'nvl': 1
-        } );
-
-      }
-
-      console.log( data );
+      // let availableDisciples = await memberDAO.getAvailableDisciples();
+      //
+      // let countAvailableDisciples = 0;
+      // for( ; countAvailableDisciples < availableDisciples.length ; countAvailableDisciples++ ) {
+      //
+      //   if( !availableDisciples[ countAvailableDisciples ].master ) {
+      //
+      //     data.push( {
+      //       'name': availableDisciples[ countAvailableDisciples ].name,
+      //       'nvl': 1
+      //     } );
+      //
+      //   }
+      //
+      // }
 
       res.render( 'index', {
         title: 'ARKANYS E-SPORTS',
