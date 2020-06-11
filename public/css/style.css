@@ -354,6 +354,106 @@ h2 {
     font-size: 16px;
     line-height: 16px; }
 
+#members {
+  padding-top: 150px;
+  padding-bottom: 10vh; }
+  #members #header {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 150px; }
+    #members #header .title {
+      width: 130px; }
+      @media screen and (max-width: 980px) {
+        #members #header .title {
+          transform: translate(-50%, -50%); } }
+  #members .wrap-content {
+    padding: 20px 30px 40px; }
+  #members h2 {
+    text-align: center;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 32px; }
+    @media screen and (max-width: 1024px) {
+      #members h2 {
+        font-size: 28px;
+        line-height: 28px; } }
+  #members p {
+    margin: 10px 0; }
+  #members p, #members strong {
+    color: #555;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 24px; }
+    @media screen and (max-width: 1024px) {
+      #members p, #members strong {
+        font-size: 20px;
+        line-height: 20px; } }
+  #members strong {
+    display: inline-block;
+    width: 50px;
+    color: #222;
+    font-weight: 500; }
+    @media screen and (max-width: 1024px) {
+      #members strong {
+        width: 40px; } }
+  #members span {
+    font-size: 16px;
+    line-height: 16px; }
+
+#error {
+  padding-top: 150px;
+  padding-bottom: 10vh; }
+  #error #header {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 150px; }
+    #error #header .title {
+      width: 130px; }
+      @media screen and (max-width: 980px) {
+        #error #header .title {
+          transform: translate(-50%, -50%); } }
+  #error .wrap-content {
+    padding: 20px 30px 40px; }
+  #error h2 {
+    text-align: center;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 32px; }
+    @media screen and (max-width: 1024px) {
+      #error h2 {
+        font-size: 28px;
+        line-height: 28px; } }
+  #error p {
+    margin: 10px 0; }
+  #error p, #error strong {
+    color: #555;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 24px; }
+    @media screen and (max-width: 1024px) {
+      #error p, #error strong {
+        font-size: 20px;
+        line-height: 20px; } }
+  #error strong {
+    display: inline-block;
+    width: 50px;
+    color: #222;
+    font-weight: 500; }
+    @media screen and (max-width: 1024px) {
+      #error strong {
+        width: 40px; } }
+  #error span {
+    font-size: 16px;
+    line-height: 16px; }
+
 #home {
   padding-top: 100vh;
   padding-bottom: 20vh; }

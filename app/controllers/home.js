@@ -81,11 +81,7 @@ module.exports = ( app, mongoose ) => {
       console.error( 'index' );
       console.error( err );
 
-      res.render( 'index', {
-        title: 'ARKANYS',
-        cod: 500
-      } );
-
+      next( err )
     }
 
   });

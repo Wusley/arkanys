@@ -1,7 +1,56 @@
-<% include header %>
+<!doctype html>
+<html lang="pt-br">
+  <% include head %>
 
-  <%- message %>
-  <%- error.status %>
-  <%- error.stack %>
-  
-<% include footer %>
+  <body id="error">
+    <% include bg-shadow %>
+    <% include header %>
+
+    <main>
+      <section class="wrap-content">
+        <h2>Erro <%= error.status %></h2>
+
+        <p>Não foi possível processar a sua solicitação, por favor, envie uma foto da sua tela para o administrador do site para que seja verificado o problema.</p>
+        <p>Url: <span id="js-url" class="text-info" style="font-size: 24px;">-</span></p>
+        <p>OS: <span id="js-os" class="text-info" style="font-size: 24px;">-</span></p>
+        <p>Navegador: <span id="js-browser" class="text-info" style="font-size: 24px;">-</span></p>
+        <p>versão: <span id="js-versao" class="text-info" style="font-size: 24px;">-</span></p>
+
+        <br/>
+        <p>Mensagem</p>
+        <pre>
+          <code>
+            <%= message %>
+          </code>
+        </pre>
+
+        <p>Stack</p>
+        <pre>
+          <code>
+            <%= error.stack %>
+          </code>
+        </pre>
+
+        <a href="javascript:history.back()" class="btn btn-link lnk btn-lg"><- Voltar</a>
+      </section>
+    </main>
+
+    <% include footer %>
+  </body>
+
+  <script src='/js/vendor/browserdetect.js'></script>
+
+  <script charset="utf-8">
+
+    window.onload = function() {
+      console.log( document.getElementById( 'js-url' ) );
+      document.getElementById( 'js-url' ).textContent = window.location.href;
+      document.getElementById( 'js-os' ).textContent = BrowserDetect.OS;
+      document.getElementById( 'js-browser' ).textContent = BrowserDetect.browser;
+      document.getElementById( 'js-versao' ).textContent = BrowserDetect.version;
+    }
+
+  </script>
+
+  <% include scripts %>
+</html>

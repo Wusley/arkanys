@@ -64,36 +64,42 @@ module.exports = (app, config) => {
   * * * * * *
   */
 
-  var controllers = glob.sync(config.root + '/app/Controllers/*.js');
-  controllers.forEach((controller) => {
-    require(controller)(app, mongoose);
-  });
+  var controllers = glob.sync( config.root + '/app/Controllers/*.js' );
+  controllers.forEach( ( controller ) => {
+    require( controller )( app, mongoose );
+  } );
 
-  app.use((req, res, next) => {
-    var err = new Error('Not Found');
+  app.use( ( req, res, next ) => {
+    var err = new Error( 'Not Found' );
     err.status = 404;
-    next(err);
-  });
+    next( err );
+  } );
 
-  if (app.get('env') === 'development') {
-    app.use((err, req, res, next) => {
-      res.status(err.status || 500);
-      res.render('error', {
+  if( app.get('env') === 'development' ) {
+    app.use( ( err, req, res, next ) => {
+      res.status( err.status || 500 );
+
+      err.status = err.status || 500;
+
+      res.render( 'error', {
         message: err.message,
         error: err,
-        title: 'error'
-      });
-    });
+        title: 'Arkanys - Erro'
+      } );
+    } );
   }
 
-  app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    res.render('error', {
+  app.use( ( err, req, res, next ) => {
+    res.status( err.status || 500 );
+
+    err.status = err.status || 500;
+
+    res.render( 'error', {
       message: err.message,
-      error: {},
-      title: 'error'
-    });
-  });
+      error: err,
+      title: 'Arkanys - Erro'
+    } );
+  } );
 
   return app;
 };
