@@ -303,6 +303,15 @@ h2 {
       width: 50vw;
       transform: translate(-50%, -70%); } }
 
+#toolbox {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  height: 100hv;
+  background-color: white; }
+
 /* PAGES */
 #rules {
   padding-top: 150px;
@@ -506,3 +515,51 @@ h2 {
         background-image: url("../img/star-exlider.svg"); }
       #home .list-members div.lider {
         background-image: url("../img/star-lider.svg"); }
+
+#bem-vindo {
+  padding-top: 150px;
+  padding-bottom: 10vh; }
+  #bem-vindo #header {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 150px; }
+    #bem-vindo #header .title {
+      width: 130px; }
+      @media screen and (max-width: 980px) {
+        #bem-vindo #header .title {
+          transform: translate(-50%, -50%); } }
+  #bem-vindo .wrap-content {
+    padding: 20px 30px 40px; }
+  #bem-vindo h2 {
+    text-align: center;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 32px; }
+    @media screen and (max-width: 1024px) {
+      #bem-vindo h2 {
+        font-size: 28px;
+        line-height: 28px; } }
+  #bem-vindo p, #bem-vindo strong {
+    color: #555;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px; }
+    @media screen and (max-width: 1024px) {
+      #bem-vindo p, #bem-vindo strong {
+        font-size: 20px;
+        line-height: 20px; } }
+  #bem-vindo strong {
+    display: inline-block;
+    width: 50px;
+    color: #222;
+    font-weight: 500; }
+    @media screen and (max-width: 1024px) {
+      #bem-vindo strong {
+        width: 40px; } }
+  #bem-vindo span {
+    font-size: 16px;
+    line-height: 16px; }

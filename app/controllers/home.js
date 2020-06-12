@@ -84,20 +84,26 @@ module.exports = ( app, mongoose ) => {
       next( err )
     }
 
-  });
+  } );
 
-  router.get('/regras', (req, res, next) => {
-    res.render('rules', {
+  router.get( '/regras', ( req, res, next ) => {
+    res.render( 'rules', {
       title: 'ARKANYS E-SPORTS - Regras'
     });
-  });
+  } );
 
-  router.get( ['/peticao', '/petition'], (req, res, next) => {
+  router.get( '/bem-vindos', ( req, res, next ) => {
+    res.render( 'bem-vindo', {
+      title: 'ARKANYS E-SPORTS - Bem Vindos'
+    });
+  } );
+
+  router.get( [ '/peticao', '/petition' ], ( req, res, next ) => {
     res.redirect('https://secure.avaaz.org/en/community_petitions/snail_game_improve_the_ping_brazilian_players_in_the_survival_heroes_app/details/');
-  });
+  } );
 
-  router.get( '/discord', (req, res, next) => {
+  router.get( '/discord', ( req, res, next ) => {
     res.redirect('https://discord.gg/3KHm4EY');
-  });
+  } );
 
 };

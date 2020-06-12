@@ -16,7 +16,17 @@
           </ol>
         </nav>
 
-        <h2 style="text-align: left;">Perfil: <%= member.name %></h2>
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 style="white-space: nowrap;">Perfil: <%= member.name %></h2>
+
+          <a href="whatsapp://send?text=Acesse o perfil de <%= member.name %>: https://arkanys.com.br/membro/<%= member.name %>" class="lnk">Compartilhar perfil&nbsp;
+            <svg width="25px" style="position: relative; top: -1px;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path style="fill:#93D632;" d="M512,255.843L299.221,22.522v139.202h-45.238C113.712,161.724,0,275.437,0,415.708v73.77
+            l20.094-22.016c68.318-74.853,164.981-117.5,266.324-117.5h12.803v139.202L512,255.843z"/><path style="fill:#86C42B;" d="M0,415.708v73.77l20.094-22.017c68.318-74.853,164.981-117.5,266.324-117.5h12.803v139.202
+            L512,255.843H56.635C21.228,299.497,0,355.12,0,415.708z"/></svg>
+          </a>
+        </div>
+
 
         <div class="btn-group w-100" role="group">
           <% if( !member.yourMasterId || member.yourMasterId === '' ) { %>
