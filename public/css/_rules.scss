@@ -38,23 +38,6 @@
     }
   }
 
-  p {
-    margin: 10px 0;
-  }
-
-  p, strong {
-    color: #555;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 24px;
-
-    @media screen and ( max-width: 1024px ) {
-      font-size: 20px;
-      line-height: 20px;
-    }
-  }
-
   strong {
     display: inline-block;
     width: 50px;

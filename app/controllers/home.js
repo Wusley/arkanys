@@ -98,6 +98,18 @@ module.exports = ( app, mongoose ) => {
     });
   } );
 
+  router.get( '/mestre-aprendiz', ( req, res, next ) => {
+    res.render( 'mestre-aprendiz', {
+      title: 'ARKANYS E-SPORTS - Mestre Aprendiz'
+    });
+  } );
+
+  router.get( '/dicas', ( req, res, next ) => {
+    res.render( 'dicas', {
+      title: 'ARKANYS E-SPORTS - Dicas'
+    });
+  } );
+
   router.get( [ '/peticao', '/petition' ], ( req, res, next ) => {
     res.redirect('https://secure.avaaz.org/en/community_petitions/snail_game_improve_the_ping_brazilian_players_in_the_survival_heroes_app/details/');
   } );

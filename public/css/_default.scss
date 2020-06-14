@@ -18,7 +18,8 @@ body {
   display: block;
 	margin: 0;
 	width: 100%;
-  min-height: 100vh;
+  min-height: 100vh!important;
+  height: auto!important;
 }
 
 h2 {
