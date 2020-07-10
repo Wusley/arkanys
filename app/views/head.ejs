@@ -1,14 +1,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
-  <title><%- title %></title>
+  <meta name="robots" content="index,follow">
+  <meta name="msapplication-TileColor" content="#111111">
 
+  <title><%- title %></title>
   <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
   <link rel="manifest" href="/img/favicon/site.webmanifest">
   <link rel="mask-icon" href="/img/favicon/safari-pinned-tab.svg" color="#111111">
-  <meta name="msapplication-TileColor" content="#111111">
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
@@ -27,4 +28,24 @@
   <% if (ENV_DEVELOPMENT) { %>
     <script src="http://localhost:35729/livereload.js"></script>
   <% } %>
+
+  <script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-arkanys-com-br.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+  </script>
 </head>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

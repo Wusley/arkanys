@@ -86,9 +86,36 @@ module.exports = ( app, mongoose ) => {
 
   } );
 
+  router.get( '/staff', async ( req, res, next ) => {
+
+    try {
+
+      let staff = await memberDAO.getStaff();
+
+      res.render( 'staff', {
+        title: 'ARKANYS E-SPORTS',
+        staff: staff
+      } );
+
+    } catch( err ) {
+
+      console.error( 'index' );
+      console.error( err );
+
+      next( err )
+    }
+
+  } );
+
   router.get( '/regras', ( req, res, next ) => {
     res.render( 'rules', {
       title: 'ARKANYS E-SPORTS - Regras'
+    });
+  } );
+
+  router.get( '/gifts', ( req, res, next ) => {
+    res.render( 'gifts', {
+      title: 'ARKANYS E-SPORTS - Gifts'
     });
   } );
 
@@ -116,6 +143,14 @@ module.exports = ( app, mongoose ) => {
 
   router.get( '/discord', ( req, res, next ) => {
     res.redirect('https://discord.gg/3KHm4EY');
+  } );
+
+  router.get( '/justificativa', ( req, res, next ) => {
+    res.redirect('https://forms.gle/EVPmLLy3UChz99vz6');
+  } );
+
+  router.get( '/youtube', ( req, res, next ) => {
+    res.redirect('https://www.youtube.com/channel/UCRdweKmKMREDDkZNXB7pCXg/videos');
   } );
 
 };

@@ -41,6 +41,17 @@ h2 {
   }
 }
 
+.lnk-contrast {
+  text-decoration: none;
+  color: white!important;
+  transition-duration: .3s;
+
+  &:hover {
+    color: #e4453f!important;
+  }
+}
+
+
 #main {
   position: relative;
   width: 100%;

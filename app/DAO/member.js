@@ -14,7 +14,7 @@ module.exports = ( function() {
         SchemaRequestMaster = mongoose.Schema( schemaRequestMaster ),
         SchemaRequestDisciple = mongoose.Schema( schemaRequestDisciple );
 
-        SchemaMember.add( { whatsapp: 'string' } );
+        // SchemaMember.add( { staff: false } );
 
     let Members = mongoose.models.Members || mongoose.model( 'Members', SchemaMember );
     let RequestsMasters = mongoose.models.RequestsMasters || mongoose.model( 'RequestsMasters', SchemaRequestMaster );
@@ -101,6 +101,25 @@ module.exports = ( function() {
         } catch ( err ) {
 
           console.error( 'memberDAO getMasters' );
+          console.error( err );
+
+        }
+
+      },
+      getStaff: async function() {
+
+        try {
+
+          let staff = await Members.find( {
+            'name': { $exists: true },
+            staff: true
+          } );
+
+          return staff;
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO getStaff' );
           console.error( err );
 
         }

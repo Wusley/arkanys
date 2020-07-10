@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-br">
+  <% include head %>
+
+  <body id="dicas">
+    <% include bg-shadow %>
+    <% include header %>
+
+    <main>
+      <section class="wrap-content">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Staff</li>
+          </ol>
+        </nav>
+
+        <h2>Staff</h2>
+
+        <p>Logo abaixo temos a lista de membros que estão a frente da guild, a Arkanys esta presente em diversos jogos, então em breve teremos atualizações com mais membros disponíveis na Staff incluindo outros jogos.</p>
+
+
+        <h6>Arkanys Survival Heroes:</h6>
+        <ul>
+          <% for(var i = 0; i < staff.length; i++) { %>
+            <li>
+              <span><a href="/membro/<%= staff[ i ].name %>"><%= staff[ i ].name %></a></span>
+            </li>
+          <% } %>
+        </ul>
+
+      </section>
+
+    </main>
+
+    <% include footer %>
+  </body>
+
+  <% include scripts %>
+</html>

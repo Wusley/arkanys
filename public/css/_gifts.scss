@@ -1,0 +1,23 @@
+#gifts {
+  padding-top: 150px;
+  padding-bottom: 10vh;
+
+  #header {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 150px;
+
+    .title {
+      width: 130px;
+
+      @media screen and ( max-width: 980px ) {
+        transform: translate( -50%, -50% );
+      }
+    }
+  }
+
+  .wrap-content {
+    padding: 20px 30px 40px;
+  }
+}
