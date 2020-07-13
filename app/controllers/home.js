@@ -93,7 +93,7 @@ module.exports = ( app, mongoose ) => {
       let staff = await memberDAO.getStaff();
 
       res.render( 'staff', {
-        title: 'ARKANYS E-SPORTS',
+        title: 'ARKANYS E-SPORTS - Staff',
         staff: staff
       } );
 
@@ -137,6 +137,12 @@ module.exports = ( app, mongoose ) => {
     });
   } );
 
+  router.get( '/conecte-se', ( req, res, next ) => {
+    res.render( 'connect', {
+      title: 'ARKANYS E-SPORTS - Conecte-se'
+    });
+  } );
+
   router.get( [ '/peticao', '/petition' ], ( req, res, next ) => {
     res.redirect('https://secure.avaaz.org/en/community_petitions/snail_game_improve_the_ping_brazilian_players_in_the_survival_heroes_app/details/');
   } );
@@ -145,12 +151,20 @@ module.exports = ( app, mongoose ) => {
     res.redirect('https://discord.gg/3KHm4EY');
   } );
 
+  router.get( '/instagram', ( req, res, next ) => {
+    res.redirect('https://www.instagram.com/arkanysports/');
+  } );
+
   router.get( '/justificativa', ( req, res, next ) => {
     res.redirect('https://forms.gle/EVPmLLy3UChz99vz6');
   } );
 
   router.get( '/youtube', ( req, res, next ) => {
     res.redirect('https://www.youtube.com/channel/UCRdweKmKMREDDkZNXB7pCXg/videos');
+  } );
+
+  router.get( '/whatsapp', ( req, res, next ) => {
+    res.redirect('https://whats.link/queroarkanys');
   } );
 
 };

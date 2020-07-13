@@ -2,7 +2,7 @@
 <html lang="pt-br">
   <% include head %>
 
-  <body id="dicas">
+  <body id="staff">
     <% include bg-shadow %>
     <% include header %>
 
@@ -19,12 +19,21 @@
 
         <p>Logo abaixo temos a lista de membros que estão a frente da guild, a Arkanys esta presente em diversos jogos, então em breve teremos atualizações com mais membros disponíveis na Staff incluindo outros jogos.</p>
 
+        <h3>Arkanys Survival Heroes:</h3>
 
-        <h6>Arkanys Survival Heroes:</h6>
-        <ul>
+        <ul class="list">
           <% for(var i = 0; i < staff.length; i++) { %>
             <li>
-              <span><a href="/membro/<%= staff[ i ].name %>"><%= staff[ i ].name %></a></span>
+              <div class="media">
+                <a class="wrap-thumbnail" href="/membro/<%= staff[ i ].name %>">
+                  <div class="thumbnail" style="background-image: url(/img/perfil/<%= staff[ i ].name %>.jpg);"></div>
+                </a>
+                <div class="media-body">
+                  <h4 class="mt-0"><%= staff[ i ].name %></h4>
+                  <p><%- staff[ i ].bio %></p>
+                  <p><a class="lnk" href="/membro/<%= staff[ i ].name %>">Visitar perfil</a></p>
+                </div>
+              </div>
             </li>
           <% } %>
         </ul>

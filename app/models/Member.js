@@ -3,6 +3,7 @@ module.exports = {
   master: { type: Boolean },
   staff: { type: Boolean },
   whatsapp: { type: String },
+  bio: { type: String },
   yourMasterId: { type: String },
   yourDisciples: [ {
     id: { type: String }

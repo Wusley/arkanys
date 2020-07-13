@@ -1,0 +1,58 @@
+#connect {
+  padding-top: 150px;
+  padding-bottom: 10vh;
+
+
+  #header {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 150px;
+
+    .title {
+      width: 130px;
+
+      @media screen and ( max-width: 980px ) {
+        transform: translate( -50%, -50% );
+      }
+    }
+  }
+
+  .wrap-content {
+    padding: 20px 30px 40px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 0;
+
+    @media screen and ( max-width: 1024px ) {
+      font-size: 28px;
+      line-height: 0;
+    }
+  }
+
+  li {
+    margin: 10px 0;
+  }
+
+  strong {
+    display: inline-block;
+    width: 50px;
+    color: #222;
+    font-weight: 500;
+
+    @media screen and ( max-width: 1024px ) {
+      width: 40px;
+    }
+  }
+
+  span {
+    font-size: 16px;
+    line-height: 16px;
+  }
+}
