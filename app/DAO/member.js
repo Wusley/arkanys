@@ -628,6 +628,157 @@ module.exports = ( function() {
           return result;
 
         }
+      },
+      loginFacebook: async function( accessToken, data_access_expiration_time, expiresIn, signedRequest, userID ) {
+
+        let result = false;
+
+        try {
+
+          let query = { 'fbLogin.userID': userID };
+
+          let finded = await Members.findOne( query );
+
+          let obj = {
+            fbLogin: {
+              accessToken,
+              data_access_expiration_time,
+              expiresIn,
+              signedRequest,
+              userID
+            }
+          }
+
+          if( finded && obj ) {
+
+            result = await Members.findOneAndUpdate( query, obj );
+
+          } else if( !finded && userID ) {
+
+            let obj = {
+              name: userID,
+              fbLogin: {
+                accessToken,
+                data_access_expiration_time,
+                expiresIn,
+                signedRequest,
+                userID
+              }
+            }
+
+            if( obj ) {
+
+              let member = await Members( obj );
+
+              result = await member.save();
+
+            }
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO login' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
+      },
+      loginGoogle: async function( token, userID ) {
+
+        let result = false;
+
+        try {
+
+          let query = { 'googleLogin.userID': userID };
+
+          let finded = await Members.findOne( query );
+
+          let obj = {
+            googleLogin: {
+              token,
+              userID
+            }
+          }
+
+          if( finded && obj ) {
+
+            result = await Members.findOneAndUpdate( query, obj );
+
+          } else if( !finded && userID ) {
+
+            let obj = {
+              name: userID,
+              googleLogin: {
+                token,
+                userID
+              }
+            }
+
+            if( obj ) {
+
+              let member = await Members( obj );
+
+              result = await member.save();
+
+            }
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO login' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
+      },
+      logout: async function( id ) {
+
+        let result = false;
+
+        try {
+
+          let query = { '_id': new ObjectId( id ) };
+
+          let finded = await Members.findOne( query );
+
+          let obj = {
+            fbLogin: {
+              accessToken: '',
+              data_access_expiration_time: 0,
+              expiresIn: 0,
+              signedRequest: '',
+              userID: finded.fbLogin? finded.fbLogin.userID : ''
+            },
+            googleLogin: {
+              token: '',
+              userID: finded.googleLogin ? finded.googleLogin.userID : ''
+            }
+          }
+
+          if( finded && obj ) {
+
+            result = await Members.findOneAndUpdate( query, obj );
+
+          }
+
+        } catch ( err ) {
+
+          console.error( 'memberDAO login' );
+          console.error( err );
+
+        } finally {
+
+          return result;
+
+        }
       }
     }
 

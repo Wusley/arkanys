@@ -1,7 +1,9 @@
 <main id="home">
   <% include about %>
-  
-  <% include graph %>
+
+  <% if( membersGraph && membersGraph.length > 0 ) { %>
+    <% include graph %>
+  <% } %>
 
   <% include contacts %>
 </main>

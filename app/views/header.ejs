@@ -1,32 +1,143 @@
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="338184710258-d53lut9t085tp5ndr9rjppn2a807n68f.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
 <script>
-  // window.fbAsyncInit = function() {
-  //   FB.init({
-  //     appId      : '2884355011673511',
-  //     cookie     : true,
-  //     xfbml      : true,
-  //     version    : 'v7.0'
-  //   });
-  //
-  //   FB.AppEvents.logPageView();
-  // };
-  //
-  // (function(d, s, id){
-  //    var js, fjs = d.getElementsByTagName(s)[0];
-  //    if (d.getElementById(id)) {return;}
-  //    js = d.createElement(s); js.id = id;
-  //    js.src = "https://connect.facebook.net/en_US/sdk.js";
-  //    fjs.parentNode.insertBefore(js, fjs);
-  //  }(document, 'script', 'facebook-jssdk'));
-  //
-  //  FB.getLoginStatus( function( response ) {
-  //    statusChangeCallback( response );
-  //  } );
-  //
-  //  function checkLoginState() {
-  //    FB.getLoginStatus(function(response) {
-  //      statusChangeCallback(response);
-  //    } );
-  //  }
+  //  ## FACEBOOK
+  window.fbAsyncInit = function() {
+    FB.init( {
+      appId      : '2884355011673511',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v7.0'
+    } );
+
+    FB.AppEvents.logPageView();
+
+    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+      statusChangeCallback(response);        // Returns the login status.
+    } );
+  };
+
+  (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/pt_BR/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus( function( response ) {   // See the onlogin handler
+      statusChangeCallback( response );
+    } );
+  }
+
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+
+    if( response.status === 'connected' ) {   // Logged into your webpage and Facebook.
+
+      sessionStorage.setItem( 'fbUserID', response.authResponse.userID );
+
+      var $login = $( '#login-facebook' );
+      $login.find( 'input[name=accessToken]' ).val( response.authResponse.accessToken );
+      $login.find( 'input[name=data_access_expiration_time]' ).val( response.authResponse.data_access_expiration_time );
+      $login.find( 'input[name=expiresIn]' ).val( response.authResponse.expiresIn );
+      $login.find( 'input[name=signedRequest]' ).val( response.authResponse.signedRequest );
+      $login.find( 'input[name=userID]' ).val( response.authResponse.userID );
+      $login.find( 'input[name=currentUrl]' ).val( window.location.href );
+
+      $login.submit();
+
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+
+      console.info( 'FB - unconnected');
+
+    }
+
+  }
+  //  FACEBOOK ##
+
+  // ## GOOGLE
+  function onSignIn( googleUser ) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile(),
+        userId = profile.getId(),
+        token = googleUser.getAuthResponse().id_token;
+
+    if( <%- JSON.stringify( connected ) %> == false && googleUser && userId && userId.length > 0 ) {
+
+      var $login = $( '#login-google' );
+      $login.find( 'input[name=token]' ).val( token );
+      $login.find( 'input[name=userID]' ).val( userId );
+      $login.find( 'input[name=currentUrl]' ).val( window.location.href );
+
+      $login.submit();
+
+    }
+
+  }
+
+  function logoutGoogle() {
+    var auth2 = gapi.auth2.getAuthInstance();
+
+    auth2
+      .signOut()
+        .then( function () {
+
+          var $logout = $( '#logout' );
+
+          $logout.submit();
+
+          console.log('Google - unconnected');
+
+        } );
+  }
+  //  GOOGLE ##
+
+  function logoutFacebook() {
+
+    FB.getLoginStatus( function( response ) {
+
+      if( response.status === 'connected' ) {
+
+        FB.logout(function(response) {
+
+          var $logout = $( '#logout' );
+
+          $logout.submit();
+
+        } );
+
+      }
+
+    } );
+
+  }
+
+  function logout() {
+
+    try {
+
+      logoutGoogle();
+
+    } catch ( e ) {
+
+      console.error( e );
+
+    }
+
+    try {
+
+      logoutFacebook();
+
+    } catch ( e ) {
+
+      console.error( e );
+
+    }
+
+  }
 </script>
 
 <header id="header">
@@ -52,11 +163,52 @@
   <nav class="menu">
     <ul class="list js-scroll">
       <li class="item"><a href="/bem-vindos" class="lnk-constrast">Bem Vindos</a></li>
-      <li class="item"><a href="/Regras" class="lnk-constrast">Regras</a></li>
-      <li class="item"><a href="/mestre-aprendiz" class="lnk-constrast">Mestre Aprendiz</a></li>
-      <li class="item"><a href="/dicas" class="lnk-constrast">Dicas</a></li>
-      <li class="item"><a href="/gifts" class="lnk-constrast">Gifts</a></li>
+      <li class="item"><a href="/membros" class="lnk-constrast">Membros</a></li>
       <li class="item"><a href="/staff" class="lnk-constrast">Staff</a></li>
+      <li class="item"><a href="/mestre-aprendiz" class="lnk-constrast">Mestre Aprendiz</a></li>
+      <li class="item"><a href="/Regras" class="lnk-constrast">Regras</a></li>
+      <li class="item"><a href="/dicas" class="lnk-constrast">Dicas</a></li>
+      <li class="item"><a href="/gifts" class="lnk-constrast">Prêmios</a></li>
     </ul>
+
+    <div class="d-flex justify-content-center" style="margin-top: 50px; padding: 20px 0; background-color: rgba(255,255,255,0.04);">
+
+        <% if( connected ) { %>
+          <div class="login" style="display: none;">
+            <% } else { %>
+          <div class="login">
+            <form id="login-facebook" action="/login-facebook" method="post">
+              <input type="hidden" name="accessToken">
+              <input type="hidden" name="data_access_expiration_time">
+              <input type="hidden" name="expiresIn">
+              <input type="hidden" name="signedRequest">
+              <input type="hidden" name="userID">
+              <input type="hidden" name="currentUrl">
+            </form>
+
+            <div class="fb-login-button" data-onlogin="checkLoginState()" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="fals" data-use-continue-as="false" data-width=""></div>
+
+            <form id="login-google" action="/login-google" method="post">
+              <input type="hidden" name="token">
+              <input type="hidden" name="userID">
+              <input type="hidden" name="currentUrl">
+            </form>
+          <% } %>
+
+          <div class="g-signin2 g-sign-custom d-flex justify-content-center" data-onsuccess="onSignIn" data-theme="dark" data-width="240" data-height="40" data-longtitle="true"></div>
+        </div>
+
+      <% if( connected ) { %>
+
+        <div class="logout lnk" onclick="logout();">
+          <form id="logout" action="/logout" method="post">
+            <input type="hidden" name="id" value="<%= connected %>">
+          </form>
+
+          Sair
+        </div>
+
+      <% } %>
+    </div>
   </nav>
 </aside>

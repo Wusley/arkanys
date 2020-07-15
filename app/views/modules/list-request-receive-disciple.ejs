@@ -1,0 +1,78 @@
+<% if( ( connected && connected == member._id ) && ( requestsPendings.length > 0 ) ) { %>
+  <br/>
+  <br/>
+  <br/>
+  <h5>Esses são os pedidos recebidos dos aprendizes, agora você deverá aceitar ou recusar esses membros como seus aprendizes.</h5>
+
+  <table class="table table-responsive-md table-hover">
+    <caption style="caption-side: top;">Pedidos recebidos pendentes: <%= requestsPendings.length %></caption>
+    <thead>
+      <tr class="bg-light">
+        <th scope="col">Mestre</th>
+        <th scope="col" class="w-100">Data do envio</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% for(var i = 0; i < requestsPendings.length; i++) { %>
+        <tr>
+          <td><a href="/membro/<%= requestsPendings[ i ].name %>"><%= requestsPendings[ i ].infoMember.name %></a></td>
+          <td scope="row" style="text-transform: capitalize;"><%= moment(requestsPendings[ i ].date ).locale( 'pt-br' ).format( 'L LT' ) %></td>
+          <td scope="row">
+            <div class="btn-group" role="group" aria-label="Action">
+              <button type="button" class="btn btn-success" data-id="<%= requestsPendings[ i ]._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-accept-member">Aceitar</button>
+              <button type="button" class="btn btn-danger" data-id="<%= requestsPendings[ i ]._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-refuse-member">Recusar</button>
+            </div>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-accept-member" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" role="alert">
+          <span class="">Tem certeza que deseja aceitar a solicitação?<br/><br/>Ao aceitar você esta ciente que precisará ajudar esse membro tirando dúvidas e estando sempre presente para que ele evolua até se tornar um mestre.</span>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/master/request/accept" method="post">
+          <input type="hidden" class="form-control" name="id">
+          <input type="hidden" class="form-control" name="name">
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-refuse-member" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header alert-info" role="alert">
+          <span class="align-middle">Tem certeza que deseja recusar a solicitação?</span>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/master/request/refuse" method="post">
+          <input type="hidden" class="form-control" name="id">
+          <input type="hidden" class="form-control" name="name">
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<% } %>

@@ -15,64 +15,55 @@ module.exports = ( app, mongoose ) => {
       let masters = await memberDAO.getMasters();
 
       let data = [];
+      if( masters.length > 0 ) {
 
-      let countMasters = 0;
-      for( ; countMasters < masters.length ; countMasters++ ) {
+        let countMasters = 0;
+        for( ; countMasters < masters.length ; countMasters++ ) {
 
-        let lenDisciples = masters[ countMasters ].yourDisciples.length;
+          let lenDisciples = masters[ countMasters ].yourDisciples.length;
 
-        if( ( masters[ countMasters ].yourDisciples && lenDisciples ) || ( masters[ countMasters ].yourMasterId && masters[ countMasters ].yourMasterId.length ) ) {
+          if( ( masters[ countMasters ].yourDisciples && lenDisciples ) || ( masters[ countMasters ].yourMasterId && masters[ countMasters ].yourMasterId.length ) ) {
 
-          let obj = {
-            'name': masters[ countMasters ].name,
-            'nvl': lenDisciples + 2,
-            'discipleMaster': [],
-            'disciples': []
-          }
+            let obj = {
+              'name': masters[ countMasters ].name,
+              'nvl': lenDisciples + 2,
+              'discipleMaster': [],
+              'disciples': []
+            }
 
-          let countDisciples = 0;
-          for( ; countDisciples < lenDisciples ; countDisciples++ ) {
+            let countDisciples = 0;
+            for( ; countDisciples < lenDisciples ; countDisciples++ ) {
 
-            let disciple = await memberDAO.getMemberById( masters[ countMasters ].yourDisciples[ countDisciples ].id );
+              let disciple = await memberDAO.getMemberById( masters[ countMasters ].yourDisciples[ countDisciples ].id );
 
-            if( disciple.master ) {
+              if( disciple.master ) {
 
-              obj[ 'discipleMaster' ].push( disciple.name );
+                obj[ 'discipleMaster' ].push( disciple.name );
 
-            } else {
+              } else {
 
-              obj[ 'disciples' ].push( {
-                'name': disciple.name,
-                'nvl': 2
-              } );
+                obj[ 'disciples' ].push( {
+                  'name': disciple.name,
+                  'nvl': 2
+                } );
+
+              }
 
             }
 
+            data.push( obj );
           }
 
-          data.push( obj );
         }
 
       }
 
-      // let availableDisciples = await memberDAO.getAvailableDisciples();
-      //
-      // let countAvailableDisciples = 0;
-      // for( ; countAvailableDisciples < availableDisciples.length ; countAvailableDisciples++ ) {
-      //
-      //   if( !availableDisciples[ countAvailableDisciples ].master ) {
-      //
-      //     data.push( {
-      //       'name': availableDisciples[ countAvailableDisciples ].name,
-      //       'nvl': 1
-      //     } );
-      //
-      //   }
-      //
-      // }
+      console.log( ( req.session.key !== undefined && req.session.key ) );
+      console.log(  _.shuffle( data ) );
 
       res.render( 'index', {
         title: 'ARKANYS E-SPORTS',
+        connected: ( req.session.key !== undefined && req.session.key ),
         membersGraph: _.shuffle( data )
       } );
 
@@ -94,6 +85,7 @@ module.exports = ( app, mongoose ) => {
 
       res.render( 'staff', {
         title: 'ARKANYS E-SPORTS - Staff',
+        connected: ( req.session.key !== undefined && req.session.key ),
         staff: staff
       } );
 
@@ -109,37 +101,43 @@ module.exports = ( app, mongoose ) => {
 
   router.get( '/regras', ( req, res, next ) => {
     res.render( 'rules', {
-      title: 'ARKANYS E-SPORTS - Regras'
+      title: 'ARKANYS E-SPORTS - Regras',
+      connected: ( req.session.key !== undefined && req.session.key )
     });
   } );
 
   router.get( '/gifts', ( req, res, next ) => {
     res.render( 'gifts', {
-      title: 'ARKANYS E-SPORTS - Gifts'
+      title: 'ARKANYS E-SPORTS - Gifts',
+      connected: ( req.session.key !== undefined && req.session.key )
     });
   } );
 
   router.get( '/bem-vindos', ( req, res, next ) => {
     res.render( 'bem-vindo', {
-      title: 'ARKANYS E-SPORTS - Bem Vindos'
+      title: 'ARKANYS E-SPORTS - Bem Vindos',
+      connected: ( req.session.key !== undefined && req.session.key )
     });
   } );
 
   router.get( '/mestre-aprendiz', ( req, res, next ) => {
     res.render( 'mestre-aprendiz', {
-      title: 'ARKANYS E-SPORTS - Mestre Aprendiz'
+      title: 'ARKANYS E-SPORTS - Mestre Aprendiz',
+      connected: ( req.session.key !== undefined && req.session.key )
     });
   } );
 
   router.get( '/dicas', ( req, res, next ) => {
     res.render( 'dicas', {
-      title: 'ARKANYS E-SPORTS - Dicas'
+      title: 'ARKANYS E-SPORTS - Dicas',
+      connected: ( req.session.key !== undefined && req.session.key )
     });
   } );
 
   router.get( '/conecte-se', ( req, res, next ) => {
     res.render( 'connect', {
-      title: 'ARKANYS E-SPORTS - Conecte-se'
+      title: 'ARKANYS E-SPORTS - Conecte-se',
+      connected: ( req.session.key !== undefined && req.session.key )
     });
   } );
 

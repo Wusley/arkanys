@@ -38,18 +38,19 @@
     }
   }
 
-  .list {
+  .list-staff {
     margin-top: 20px;
-  }
 
-  li {
-    padding: 20px 0;
-    border-top: 1px solid #dadada;
+    li {
+      padding: 20px 0;
+      border-top: 1px solid #dadada;
 
-    &:first-child {
-      border-top: none;
+      &:first-child {
+        border-top: none;
+      }
     }
   }
+
 
   .media-body {
     margin-left: 20px;

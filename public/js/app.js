@@ -25,7 +25,7 @@
 
 		$('[data-tooltip="true"]').tooltip()
 
-		$( '#modal-master, #modal-member' )
+		$( '#modal-master, #modal-member, #modal-update-member' )
 			.on( 'show.bs.modal', function( event ) {
 				var modal = $( this ),
 						button = $( event.relatedTarget );

@@ -1,0 +1,59 @@
+  <% if( ( connected && connected == member._id ) && member.master ) { %>
+    <div class="modal fade" id="modal-member" tabindex="-1" role="dialog" aria-labelledby="Member" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" data-default="Solicitar Mestre">Solicitar Aprendiz</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="/disciple/request" method="post">
+            <input type="hidden" class="form-control" name="master-id">
+            <input type="hidden" class="form-control" name="name">
+
+            <div class="modal-body">
+              <div class="form-group">
+                <% if( availableDisciples.length > 0 ) { %>
+
+                  <label for="disciple-id" class="text-success">Aprendizes disponíveis:</label>
+                  <select class="form-control" id="disciple-id" name="disciple-id">
+                    <option value="">Selecione</option>
+
+                    <% for(var i = 0; i < availableDisciples.length; i++) { %>
+                      <% if( availableDisciples[ i ].name !== member.name ) { %>
+                        <option value="<%= availableDisciples[ i ]._id %>"><%= availableDisciples[ i ].name %></option>
+                      <% } %>
+                    <% } %>
+                  </select>
+
+                <% } else { %>
+
+                  <label for="disciple-id" class="text-danger">Você já enviou solicitação para todos os aprendizes disponíveis.</label>
+
+                <% } %>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-dark col-sm btn-lg bg-info border-0"
+      data-toggle="modal"
+      data-tooltip="true"
+      data-target="#modal-member"
+      data-name="<%= member.name %>"
+      data-master-id="<%= member._id %>"
+      data-placement="top"
+      title="É possível enviar mais de uma solicitação.">
+        Clique aqui para conseguir um aprendiz
+      </button>
+
+  <% } %>

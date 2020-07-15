@@ -1,0 +1,56 @@
+  <% if( ( connected && connected == member._id ) && ( !member.yourMasterId || member.yourMasterId === '' ) ) { %>
+    <button
+      type="button"
+      class="btn btn-dark col-sm btn-lg bg-secondary border-0"
+      data-toggle="modal"
+      data-tooltip="true"
+      data-target="#modal-master"
+      data-member-id="<%= member._id %>"
+      data-name="<%= member.name %>"
+      data-placement="top"
+      title="É possível enviar mais de uma solicitação.">
+        Clique aqui para conseguir um mestre
+      </button>
+
+    <div class="modal fade" id="modal-master" tabindex="-1" role="dialog" aria-labelledby="Master" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" data-default="Solicitar Mestre">Solicitar Mestre</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form action="/master/request" method="post">
+            <input type="hidden" class="form-control" name="member-id">
+            <input type="hidden" class="form-control" name="name">
+
+            <div class="modal-body">
+              <div class="form-group">
+                <% if( availableMasters.length > 0 ) { %>
+
+                  <label for="master-id" class="text-success">Mestres disponíveis:</label>
+                  <select class="form-control" id="master-id" name="master-id">
+                    <option value="">Selecione</option>
+
+                    <% for(var i = 0; i < availableMasters.length; i++) { %>
+                      <option value="<%= availableMasters[ i ]._id %>"><%= availableMasters[ i ].name %></option>
+                    <% } %>
+                  </select>
+
+                <% } else { %>
+
+                  <label for="master-id" class="text-danger">Você já enviou solicitação para todos os mestres disponíveis.</label>
+
+                <% } %>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <% } %>

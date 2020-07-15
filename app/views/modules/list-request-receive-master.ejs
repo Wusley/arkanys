@@ -1,0 +1,78 @@
+<% if( ( connected && connected == member._id ) && ( requestsPendingsDisciples.length > 0 ) ) { %>
+  <br/>
+  <br/>
+  <br/>
+  <h5>Esses são os pedidos recebidos dos mestres, agora você deverá aceitar ou recusar esses membros como seu mestre.</h5>
+
+  <table class="table table-responsive-md table-hover">
+    <caption style="caption-side: top;">Pedidos recebidos pendentes: <%= requestsPendingsDisciples.length %></caption>
+    <thead>
+      <tr class="bg-light">
+        <th scope="col">Mestre</th>
+        <th scope="col" class="w-100">Data do envio</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% for(var i = 0; i < requestsPendingsDisciples.length; i++) { %>
+        <tr>
+          <td><a href="/membro/<%= requestsPendingsDisciples[ i ].infoMaster.name %>"><%= requestsPendingsDisciples[ i ].infoMaster.name %></a></td>
+          <th scope="row" style="text-transform: capitalize;"><%= moment(requestsPendingsDisciples[ i ].date ).locale( 'pt-br' ).format( 'L LT' ) %></th>
+          <td scope="row">
+            <div class="btn-group" role="group" aria-label="Action">
+              <button type="button" class="btn btn-success" data-id="<%= requestsPendingsDisciples[ i ]._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-accept-master">Aceitar</button>
+              <button type="button" class="btn btn-danger" data-id="<%= requestsPendingsDisciples[ i ]._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-refuse-master">Recusar</button>
+            </div>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-accept-master" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" role="alert">
+          <span class="">Tem certeza que deseja aceitar a solicitação?<br/><br/>Ao aceitar você esta ciente que terá um mestre acompanhando seu processo de evolução como jogador, tirando dúvidas e cobrando seu empenho para ganhar experiência.</span>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/disciple/request/accept" method="post">
+          <input type="hidden" class="form-control" name="id">
+          <input type="hidden" class="form-control" name="name">
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal-refuse-master" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header alert-info" role="alert">
+          <span class="align-middle">Tem certeza que deseja recusar a solicitação?</span>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/disciple/request/refuse" method="post">
+          <input type="hidden" class="form-control" name="id">
+          <input type="hidden" class="form-control" name="name">
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<% } %>
