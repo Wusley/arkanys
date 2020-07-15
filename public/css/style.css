@@ -118,7 +118,7 @@ h2 {
   width: auto;
   height: auto;
   z-index: -1000;
-  background: black url(https://arkanys-assets.s3-sa-east-1.amazonaws.com/bg.jpg) no-repeat;
+  background: black url(/img/bg.jpg) no-repeat;
   background-size: cover;
   z-index: -1; }
 
@@ -411,6 +411,13 @@ h2 {
       color: #a7a9ac;
       font: 24px "Roboto";
       text-transform: uppercase; }
+  #menu .g-sign-custom {
+    margin-top: 15px;
+    overflow: hidden;
+    border-radius: 4px; }
+  #menu .logout {
+    cursor: pointer;
+    font: 24px "Roboto"; }
 
 /* PAGES */
 #staff {
@@ -439,13 +446,13 @@ h2 {
       #staff h2 {
         font-size: 28px;
         line-height: 28px; } }
-  #staff .list {
+  #staff .list-staff {
     margin-top: 20px; }
-  #staff li {
-    padding: 20px 0;
-    border-top: 1px solid #dadada; }
-    #staff li:first-child {
-      border-top: none; }
+    #staff .list-staff li {
+      padding: 20px 0;
+      border-top: 1px solid #dadada; }
+      #staff .list-staff li:first-child {
+        border-top: none; }
   #staff .media-body {
     margin-left: 20px; }
     #staff .media-body p:last-child {
@@ -604,17 +611,6 @@ h2 {
           transform: translate(-50%, -50%); } }
   #members .wrap-content {
     padding: 20px 30px 40px; }
-  #members h2 {
-    text-align: center;
-    color: #222;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 900;
-    font-size: 32px;
-    line-height: 32px; }
-    @media screen and (max-width: 1024px) {
-      #members h2 {
-        font-size: 28px;
-        line-height: 28px; } }
   #members p {
     margin: 10px 0; }
   #members p, #members strong {
@@ -638,6 +634,11 @@ h2 {
   #members span {
     font-size: 16px;
     line-height: 16px; }
+  #members .settings {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px; }
 
 #error {
   padding-top: 150px;

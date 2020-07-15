@@ -19,7 +19,8 @@ module.exports = ( app, mongoose ) => {
       res.render( 'members', {
         title: 'ARKANYS',
         members: list,
-        cod: 200
+        connected: ( req.session.key !== undefined && req.session.key ),
+        cod: 200,
       });
 
     } catch( err ) {
@@ -30,6 +31,7 @@ module.exports = ( app, mongoose ) => {
       res.render('members', {
         title: 'ARKANYS',
         member: false,
+        connected: ( req.session.key !== undefined && req.session.key ),
         cod: 500
       });
 
@@ -43,7 +45,7 @@ module.exports = ( app, mongoose ) => {
       let member = await memberDAO.getMemberByName( req.params.name );
 
       let disciples = [];
-      if( member.yourDisciples.length > 0 ) {
+      if( member && member.yourDisciples.length > 0 ) {
 
         let count = 0;
         for( ; count < member.yourDisciples.length ; count++ ) {
@@ -58,7 +60,7 @@ module.exports = ( app, mongoose ) => {
 
       let availableDisciples = await memberDAO.getAvailableDisciples();
 
-      let master = ( member.yourMasterId && member.yourMasterId !== '' ) ? await memberDAO.getMemberById( member.yourMasterId ) : false;
+      let master = ( member && member.yourMasterId && member.yourMasterId !== '' ) ? await memberDAO.getMemberById( member.yourMasterId ) : false;
 
       let masters = await memberDAO.getMasters();
 
@@ -116,6 +118,7 @@ module.exports = ( app, mongoose ) => {
         requestsPendingsDisciples: requestsPendingsDisciples || false,
         requestsPendings: requestsPendings || false,
         name: req.params.name,
+        connected: ( req.session.key !== undefined && req.session.key ),
         cod: 200
       });
 
@@ -127,6 +130,7 @@ module.exports = ( app, mongoose ) => {
       res.render('member', {
         title: 'ARKANYS',
         member: false,
+        connected: ( req.session.key !== undefined && req.session.key ),
         cod: 500
       });
 
@@ -137,27 +141,18 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body.name ) {
+      if(
+        req.body.id &&
+        req.body.id === req.session.key &&
+        req.session.key !== undefined ) {
 
-        if( req.body.id ) {
+        await memberDAO.update( req.body.id, {
+          name: req.body.name,
+          whatsapp: req.body.whatsapp,
+          master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
+        } );
 
-          await memberDAO.update( req.body.id, {
-            name: req.body.name,
-            whatsapp: req.body.whatsapp,
-            master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
-          } );
-
-        } else {
-
-          await memberDAO.create( {
-            name: req.body.name,
-            whatsapp: req.body.whatsapp,
-            master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
-          } );
-
-        }
-
-        res.redirect( '/membros' );
+        res.redirect( '/membro/' + req.body.name );
 
       } else {
 
@@ -182,7 +177,11 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body[ 'member-id' ] && req.body[ 'master-id' ] ) {
+      if(
+        req.body[ 'master-id' ] &&
+        req.body[ 'member-id' ] === req.session.key &&
+        req.session.key !== undefined &&
+        req.body[ 'member-id' ] ) {
 
         await memberDAO.requestMaster( req.body[ 'master-id' ], req.body[ 'member-id' ] );
 
@@ -211,9 +210,11 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      console.log( req.body );
-
-      if( req.body[ 'disciple-id' ] && req.body[ 'master-id' ] ) {
+      if(
+        req.body[ 'master-id' ] &&
+        req.body[ 'master-id' ] === req.session.key &&
+        req.session.key !== undefined &&
+        req.body[ 'disciple-id' ] ) {
 
         await memberDAO.requestDisciple( req.body[ 'disciple-id' ], req.body[ 'master-id' ] );
 
@@ -242,7 +243,10 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body.id ) {
+      if(
+        req.body.id &&
+        req.body.id === req.session.key &&
+        req.session.key !== undefined ) {
 
         await memberDAO.acceptRequestMaster( req.body.id );
 
@@ -271,7 +275,10 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body.id ) {
+      if(
+        req.body.id &&
+        req.body.id === req.session.key &&
+        req.session.key !== undefined ) {
 
         await memberDAO.acceptRequestDisciple( req.body.id );
 
@@ -300,7 +307,10 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body.id ) {
+      if(
+        req.body.id &&
+        req.body.id === req.session.key &&
+        req.session.key !== undefined ) {
 
         await memberDAO.cancelRequestMaster( req.body.id );
 
@@ -329,7 +339,10 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body.id ) {
+      if(
+        req.body.id &&
+        req.body.id === req.session.key &&
+        req.session.key !== undefined ) {
 
         await memberDAO.cancelRequestDisciple( req.body.id );
 
@@ -358,7 +371,11 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
-      if( req.body[ 'master-id' ] && req.body[ 'member-id' ] ) {
+      if(
+        req.body[ 'member-id' ] &&
+        req.body[ 'member-id' ] === req.session.key &&
+        req.session.key !== undefined &&
+        req.body[ 'master-id' ] ) {
 
         await memberDAO.unlinkMaster( req.body[ 'master-id' ], req.body[ 'member-id' ] );
 
@@ -382,5 +399,5 @@ module.exports = ( app, mongoose ) => {
     }
 
   } );
-  
+
 };

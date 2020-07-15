@@ -1,0 +1,63 @@
+<% if( ( connected && connected == member._id ) && ( requestsDisciples.length > 0 ) ) { %>
+  <br/>
+  <br/>
+  <br/>
+  <h5>Esses são os seus pedidos enviados aos aprendizes, agora você deverá aguardar até que seu pedido seja aceito.</h5>
+
+  <table class="table table-responsive-md table-hover">
+    <caption style="caption-side: top;">Pedidos enviados pendentes: <%= requestsDisciples.length %></caption>
+    <thead>
+      <tr class="bg-light">
+        <th scope="col">Aprendiz</th>
+        <th scope="col"></th>
+        <th scope="col">Data do envio</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% for(var i = 0; i < requestsDisciples.length; i++) { %>
+        <tr>
+          <td><a href="/membro/<%= requestsDisciples[ i ].infoDisciple.name %>" class="lnk"><%= requestsDisciples[ i ].infoDisciple.name %></a></td>
+          <td scope="row">
+            <a style="margin-bottom: 10px;" href="whatsapp://send?text=Me aceite como seu mestre! Acesse o link: https://arkanys.com.br/membro/<%= requestsDisciples[ i ].infoDisciple.name %> e clique em aceitar." class="w-100 lnk">Compartilhar com o membro&nbsp;
+              <svg width="25px" style="position: relative; top: -1px;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path style="fill:#93D632;" d="M512,255.843L299.221,22.522v139.202h-45.238C113.712,161.724,0,275.437,0,415.708v73.77
+                l20.094-22.016c68.318-74.853,164.981-117.5,266.324-117.5h12.803v139.202L512,255.843z"/><path style="fill:#86C42B;" d="M0,415.708v73.77l20.094-22.017c68.318-74.853,164.981-117.5,266.324-117.5h12.803v139.202
+                L512,255.843H56.635C21.228,299.497,0,355.12,0,415.708z"/></svg>
+            </a>
+          </td>
+          <td scope="row" style="text-transform: capitalize;"><%= moment(requestsDisciples[ i ].date ).locale( 'pt-br' ).format( 'L LT' ) %></td>
+          <td scope="row">
+            <button type="button" class="btn btn-light" data-id="<%= requestsDisciples[ i ]._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-confirm-cancel-disciple">
+              Cancelar
+            </button>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+  <div class="modal fade" id="modal-confirm-cancel-disciple" tabindex="-1" role="dialog" aria-labelledby="confirm" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header  alert-info" role="alert">
+          <span class="align-middle">Tem certeza que deseja cancelar a solicitação para esse aprendiz?</span>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/disciple/request/cancel" method="post">
+          <input type="hidden" class="form-control" name="id">
+          <input type="hidden" class="form-control" name="name">
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<% } %>

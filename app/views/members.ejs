@@ -17,15 +17,12 @@
 
         <h2>Membros</h2>
 
-        <button type="button" class="btn btn-dark col-12" data-toggle="modal" data-target="#modal-member">Clique para adicionar membro</button>
-
         <table class="table table-hover">
           <caption style="caption-side: top;">Total de membros <%= members.length %></caption>
           <thead>
             <tr class="bg-light">
               <th scope="col">Mestre</th>
-              <th scope="col">Nick</th>
-              <th scope="col" class="w-100"></th>
+              <th scope="col" class="w-100">Nick</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -36,64 +33,17 @@
                 <th scope="row" class="<%= members[ i ].master == true ? 'text-success' : '' %>"><%= members[ i ].master == true ? 'Sim' : 'Não' %></th>
                 <td><a href="/membro/<%= members[ i ].name %>"><%= members[ i ].name %></a></td>
                 <td scope="row">
-                  <a style="margin-bottom: 10px;" href="whatsapp://send?text=Acesse o perfil de <%= members[ i ].name %>: https://arkanys.com.br/membro/<%= members[ i ].name %>" class="w-100 lnk">Compartilhar perfil&nbsp;
+                  <a style="margin-bottom: 10px;" href="whatsapp://send?text=Acesse o perfil de <%= members[ i ].name %>: https://arkanys.com.br/membro/<%= members[ i ].name %>" class="w-100 lnk">
                     <svg width="25px" style="position: relative; top: -1px;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path style="fill:#93D632;" d="M512,255.843L299.221,22.522v139.202h-45.238C113.712,161.724,0,275.437,0,415.708v73.77
                     l20.094-22.016c68.318-74.853,164.981-117.5,266.324-117.5h12.803v139.202L512,255.843z"/><path style="fill:#86C42B;" d="M0,415.708v73.77l20.094-22.017c68.318-74.853,164.981-117.5,266.324-117.5h12.803v139.202
                     L512,255.843H56.635C21.228,299.497,0,355.12,0,415.708z"/></svg>
                   </a>
                 </td>
-                <td scope="row">
-                  <button type="button" class="btn btn-light"
-                    data-title="Editar membro"
-                    data-id="<%= members[ i ]._id %>"
-                    data-name="<%= members[ i ].name %>"
-                    data-whatsapp="<%= members[ i ].whatsapp %>"
-                    data-master="<%= members[ i ].master %>"
-                    data-target="#modal-member"
-                    data-toggle="modal">
-                    Editar
-                  </button>
-                </td>
               </tr>
             <% } %>
           </tbody>
         </table>
-
-        <div class="modal fade" id="modal-member" tabindex="-1" role="dialog" aria-labelledby="Member" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" data-default="Novo membro">Novo membro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <form action="/member" method="post">
-                <input type="hidden" class="form-control" name="id">
-
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label for="name" class="col-form-label">Apelido:</label>
-                    <input type="text" class="form-control" id="name" name="name">
-                  </div>
-                  <div class="form-group">
-                    <label for="whatsapp" class="col-form-label">Número whatsapp:</label>
-                    <input type="tel" class="form-control" id="whatsapp" name="whatsapp">
-                  </div>
-                  <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="master" name="master">
-                    <label class="form-check-label" for="master">Mestre</label>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                  <button type="submit" class="btn btn-primary">Salvar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
       </section>
     </main>
 

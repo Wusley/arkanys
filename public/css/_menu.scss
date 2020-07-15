@@ -106,4 +106,15 @@
       }
     }
   }
+
+  .g-sign-custom {
+    margin-top: 15px;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .logout {
+    cursor: pointer;
+    font: 24px "Roboto";
+  }
 }
