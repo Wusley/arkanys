@@ -461,6 +461,50 @@ h2 {
     font-size: 16px;
     line-height: 16px; }
 
+#mural {
+  padding-top: 150px;
+  padding-bottom: 10vh; }
+  #mural #header {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 150px; }
+    #mural #header .title {
+      width: 130px; }
+      @media screen and (max-width: 980px) {
+        #mural #header .title {
+          transform: translate(-50%, -50%); } }
+  #mural .wrap-content {
+    padding: 20px 30px 40px; }
+  #mural h2 {
+    text-align: center;
+    color: #222;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 32px; }
+    @media screen and (max-width: 1024px) {
+      #mural h2 {
+        font-size: 28px;
+        line-height: 28px; } }
+  #mural .list-mural {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; }
+    #mural .list-mural li {
+      display: block;
+      width: 25%;
+      padding: 10px; }
+      #mural .list-mural li img {
+        display: block;
+        margin: 0 auto; }
+      @media screen and (max-width: 980px) {
+        #mural .list-mural li {
+          width: 50%; } }
+      @media screen and (max-width: 640px) {
+        #mural .list-mural li {
+          width: 100%; } }
+
 #rules {
   padding-top: 150px;
   padding-bottom: 10vh; }

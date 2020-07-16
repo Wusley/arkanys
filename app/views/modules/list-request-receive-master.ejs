@@ -21,8 +21,8 @@
           <th scope="row" style="text-transform: capitalize;"><%= moment(requestsPendingsDisciples[ i ].date ).locale( 'pt-br' ).format( 'L LT' ) %></th>
           <td scope="row">
             <div class="btn-group" role="group" aria-label="Action">
-              <button type="button" class="btn btn-success" data-id="<%= requestsPendingsDisciples[ i ]._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-accept-master">Aceitar</button>
-              <button type="button" class="btn btn-danger" data-id="<%= requestsPendingsDisciples[ i ]._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-refuse-master">Recusar</button>
+              <button type="button" class="btn btn-success" data-request-id="<%= requestsPendingsDisciples[ i ]._id %>" data-id="<%= member._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-accept-master">Aceitar</button>
+              <button type="button" class="btn btn-danger" data-request-id="<%= requestsPendingsDisciples[ i ]._id %>" data-id="<%= member._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-refuse-master">Recusar</button>
             </div>
           </td>
         </tr>
@@ -43,6 +43,7 @@
         <form action="/disciple/request/accept" method="post">
           <input type="hidden" class="form-control" name="id">
           <input type="hidden" class="form-control" name="name">
+          <input type="hidden" class="form-control" name="request-id">
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -66,6 +67,7 @@
         <form action="/disciple/request/refuse" method="post">
           <input type="hidden" class="form-control" name="id">
           <input type="hidden" class="form-control" name="name">
+          <input type="hidden" class="form-control" name="request-id">
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

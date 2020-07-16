@@ -1,5 +1,5 @@
 
-	$( window ).on( 'load', () => {
+	$( document ).ready( () => {
 
 		var instSkrollr = skrollr.init();
 
@@ -57,12 +57,14 @@
 
 			  var name = button.data( 'name' ),
 			  		id = button.data( 'id' ),
+			  		requestId = button.data( 'request-id' ),
 			  		memberId = button.data( 'member-id' ),
 			  		masterId = button.data( 'master-id' ),
 						title = button.data( 'title' ) || modal.find( '.modal-title' ).data( 'default' );
 
 				modal.find( '.modal-title' ).text( title );
 			  modal.find( 'form input[name=id]' ).val( id );
+			  modal.find( 'form input[name=request-id]' ).val( requestId );
 			  modal.find( 'form input[name=member-id]' ).val( memberId );
 			  modal.find( 'form input[name=master-id]' ).val( masterId );
 			  modal.find( 'form input[name=name]' ).val( name );

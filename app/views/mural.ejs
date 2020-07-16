@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-br">
+  <% include head %>
+
+  <body id="mural">
+    <% include header %>
+    <% include menu %>
+
+    <main>
+      <section class="wrap-content">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Início</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Honra</li>
+          </ol>
+        </nav>
+
+        <h2>Mural de Honra</h2>
+
+        <ul class="list-mural">
+          <% for(var i = 0; i < countLeaders.length; i++) { %>
+            <li>
+              <img src="/img/leaders/<%= countLeaders[i] %>" class="img-thumbnail" alt="">
+            </li>
+          <% } %>
+
+          <% for(var i = 0; i < countHeads.length; i++) { %>
+            <li>
+              <img src="/img/heads/<%= countHeads[i] %>" class="img-thumbnail" alt="">
+            </li>
+          <% } %>
+
+          <% for(var i = 0; i < countMembers.length; i++) { %>
+            <li>
+              <img src="/img/members/<%= countMembers[i] %>" class="img-thumbnail" alt="">
+            </li>
+          <% } %>
+        </ul>
+      </section>
+
+      <section class="wrap-content">
+
+        <div id="disqus_thread"></div>
+      </section>
+    </main>
+
+    <% include footer %>
+  </body>
+
+  <% include scripts %>
+</html>

@@ -1,6 +1,7 @@
 const express = require( 'express' );
 const _ = require( 'underscore' );
 const router = express.Router();
+const fs = require('fs');
 
 module.exports = ( app, mongoose ) => {
 
@@ -132,6 +133,43 @@ module.exports = ( app, mongoose ) => {
       title: 'ARKANYS E-SPORTS - Dicas',
       connected: ( req.session.key !== undefined && req.session.key )
     });
+  } );
+
+  router.get( '/mural-honra', async ( req, res, next ) => {
+
+    try {
+
+      const leaders = './public/img/leaders';
+      let countLeaders = await fs.readdirSync( leaders, async ( err, files ) => {
+        return files.length;
+      } );
+
+      const heads = './public/img/heads';
+      let countHeads = await fs.readdirSync( heads, async ( err, files ) => {
+        return files.length;
+      } );
+
+      const members = './public/img/members';
+      let countMembers = await fs.readdirSync( members, async ( err, files ) => {
+        return files.length;
+      } );
+
+      res.render( 'mural', {
+        title: 'ARKANYS E-SPORTS - Mural Honra',
+        countLeaders: countLeaders,
+        countHeads: _.shuffle( countHeads ),
+        countMembers: _.shuffle( countMembers ),
+        connected: ( req.session.key !== undefined && req.session.key )
+      });
+
+    } catch( err ) {
+
+      console.error( 'index' );
+      console.error( err );
+
+      next( err )
+    }
+
   } );
 
   router.get( '/conecte-se', ( req, res, next ) => {

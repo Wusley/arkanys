@@ -29,7 +29,7 @@
           </td>
           <td scope="row" style="text-transform: capitalize;"><%= moment(requestsMasters[ i ].date ).locale( 'pt-br' ).format( 'L LT' ) %></td>
           <td scope="row">
-            <button type="button" class="btn btn-light" data-id="<%= requestsMasters[ i ]._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-confirm-cancel-master">
+            <button type="button" class="btn btn-light" data-request-id="<%= requestsMasters[ i ]._id %>" data-id="<%= member._id %>" data-name="<%= member.name %>" data-toggle="modal" data-target="#modal-confirm-cancel-master">
               Cancelar
             </button>
           </td>
@@ -51,6 +51,7 @@
         <form action="/master/request/cancel" method="post">
           <input type="hidden" class="form-control" name="id">
           <input type="hidden" class="form-control" name="name">
+          <input type="hidden" class="form-control" name="request-id">
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

@@ -256,11 +256,12 @@ module.exports = ( app, mongoose ) => {
     try {
 
       if(
+        req.body[ 'request-id' ] &&
         req.body.id &&
         req.body.id === req.session.key &&
         req.session.key !== undefined ) {
 
-        await memberDAO.acceptRequestMaster( req.body.id );
+        await memberDAO.acceptRequestMaster( req.body[ 'request-id' ] );
 
         res.redirect( '/membro/' + req.body.name );
 
@@ -288,11 +289,12 @@ module.exports = ( app, mongoose ) => {
     try {
 
       if(
+        req.body[ 'request-id' ] &&
         req.body.id &&
         req.body.id === req.session.key &&
         req.session.key !== undefined ) {
 
-        await memberDAO.acceptRequestDisciple( req.body.id );
+        await memberDAO.acceptRequestDisciple( req.body[ 'request-id' ] );
 
         res.redirect( '/membro/' + req.body.name );
 
@@ -320,11 +322,12 @@ module.exports = ( app, mongoose ) => {
     try {
 
       if(
+        req.body[ 'request-id' ] &&
         req.body.id &&
         req.body.id === req.session.key &&
         req.session.key !== undefined ) {
 
-        await memberDAO.cancelRequestMaster( req.body.id );
+        await memberDAO.cancelRequestMaster( req.body[ 'request-id' ] );
 
         res.redirect( '/membro/' + req.body.name );
 
@@ -352,11 +355,12 @@ module.exports = ( app, mongoose ) => {
     try {
 
       if(
+        req.body[ 'request-id' ] &&
         req.body.id &&
         req.body.id === req.session.key &&
         req.session.key !== undefined ) {
 
-        await memberDAO.cancelRequestDisciple( req.body.id );
+        await memberDAO.cancelRequestDisciple( req.body[ 'request-id' ] );
 
         res.redirect( '/membro/' + req.body.name );
 
@@ -384,10 +388,9 @@ module.exports = ( app, mongoose ) => {
     try {
 
       if(
-        req.body[ 'member-id' ] &&
-        req.body[ 'member-id' ] === req.session.key &&
-        req.session.key !== undefined &&
-        req.body[ 'master-id' ] ) {
+        req.body[ 'master-id' ] &&
+        ( req.body[ 'member-id' ] === req.session.key || req.body[ 'master-id' ] === req.session.key ) &&
+        req.session.key !== undefined ) {
 
         await memberDAO.unlinkMaster( req.body[ 'master-id' ], req.body[ 'member-id' ] );
 
