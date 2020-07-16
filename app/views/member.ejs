@@ -3,20 +3,12 @@
   <% include head %>
 
   <body id="members">
-    <% include bg-shadow %>
-    <% include header %>
+    <% include header-perfil %>
+    <% include menu %>
 
     <main>
       <section class="wrap-content">
-        <nav class="wrap-breadcrumb" aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Início</a></li>
-            <li class="breadcrumb-item"><a href="/membros">Membros</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><%= member.name %></li>
-          </ol>
-        </nav>
-
-        <% include modules/header-perfil %>
+        <% include modules/info-perfil %>
 
         <div class="btn-group w-100" role="group">
 

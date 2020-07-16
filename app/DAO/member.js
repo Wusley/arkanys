@@ -262,7 +262,9 @@ module.exports = ( function() {
           let obj = {
             name: member.name,
             whatsapp: member.whatsapp,
-            master: member.master
+            master: member.master,
+            avatar: member.avatar,
+            bio: member.bio
           }
 
           if( !finded && obj ) {
@@ -296,9 +298,11 @@ module.exports = ( function() {
           let finded = await Members.findOne( query );
 
           let obj = {
-            name: member.name,
-            whatsapp: member.whatsapp,
-            master: member.master
+            name: member.name !== '' ? member.name : finded.name,
+            whatsapp: member.whatsapp !== '' ? member.whatsapp : finded.whatsapp,
+            master: member.master !== '' ? member.master : finded.master,
+            avatar: member.avatar !== '' ? member.avatar : finded.avatar,
+            bio: member.bio !== '' ? member.bio : finded.bio
           }
 
           if( finded && obj ) {

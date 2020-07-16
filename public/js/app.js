@@ -34,6 +34,7 @@
 			  		id = button.data( 'id' ),
 			  		whatsapp = button.data( 'whatsapp' ),
 			  		master = button.data( 'master' ),
+			  		bio = button.data( 'bio' ),
 			  		masterId = button.data( 'master-id' ),
 			  		memberId = button.data( 'member-id' ),
 						title = button.data( 'title' ) || modal.find( '.modal-title' ).data( 'default' );
@@ -45,7 +46,7 @@
 			  modal.find( 'form input[name=master-id]' ).val( masterId );
 			  modal.find( 'form input[name=member-id]' ).val( memberId );
 			  modal.find( 'form input[name=master]' ).prop("checked", Boolean( master ) );
-
+				modal.find( 'form textarea[name=bio]' ).val( bio ).text( bio );
 			} );
 
 		$( '#modal-confirm-cancel-master, #modal-confirm-cancel-disciple, #modal-accept-member, #modal-accept-master, #modal-refuse-member, #modal-refuse-master, #modal-unlink-member, #modal-unlink-master' )

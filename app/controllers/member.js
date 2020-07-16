@@ -146,9 +146,21 @@ module.exports = ( app, mongoose ) => {
         req.body.id === req.session.key &&
         req.session.key !== undefined ) {
 
+        if( req.files ) {
+
+          //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
+          let avatar = req.files.avatar;
+
+          //Use the mv() method to place the file in upload directory (i.e. "uploads")
+          avatar.mv( './public/uploads/' + avatar.name );
+
+        }
+
         await memberDAO.update( req.body.id, {
           name: req.body.name,
           whatsapp: req.body.whatsapp,
+          bio: req.body.bio,
+          avatar: req.files ? req.files.avatar.name : '',
           master: ( ( req.body.master == '1' || req.body.master == 'on' ) ? true : false )
         } );
 

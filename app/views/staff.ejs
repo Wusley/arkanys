@@ -3,8 +3,8 @@
   <% include head %>
 
   <body id="staff">
-    <% include bg-shadow %>
     <% include header %>
+    <% include menu %>
 
     <main>
       <section class="wrap-content">
@@ -26,7 +26,7 @@
             <li>
               <div class="media">
                 <a class="wrap-thumbnail" href="/membro/<%= staff[ i ].name %>">
-                  <div class="thumbnail" style="background-image: url(/img/perfil/<%= staff[ i ].name %>.jpg);"></div>
+                  <div class="thumbnail" style="background-image: url(/uploads/<%= staff[ i ].avatar %>);"></div>
                 </a>
                 <div class="media-body">
                   <h4 class="mt-0"><%= staff[ i ].name %></h4>

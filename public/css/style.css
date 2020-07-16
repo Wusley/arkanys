@@ -122,54 +122,6 @@ h2 {
   background-size: cover;
   z-index: -1; }
 
-.bg-shadow {
-  position: fixed;
-  z-index: 2000; }
-  .bg-shadow .top {
-    position: fixed;
-    display: block;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: url("../img/border-top.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    pointer-events: none; }
-  .bg-shadow .left {
-    position: fixed;
-    display: block;
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 100vh;
-    background: url("../img/border-left.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    pointer-events: none; }
-  .bg-shadow .right {
-    position: fixed;
-    display: block;
-    top: 0;
-    right: 0;
-    width: 100px;
-    height: 100vh;
-    background: url("../img/border-right.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    pointer-events: none; }
-  .bg-shadow .bottom {
-    position: fixed;
-    display: block;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: url("../img/border-bottom.png");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    pointer-events: none; }
-
 #about {
   position: relative;
   margin: -60px 0;
@@ -297,6 +249,13 @@ h2 {
   font-weight: 300;
   font-size: 16px;
   padding-bottom: 40px; }
+
+#header-perfil {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100px;
+  top: 0; }
 
 #header {
   position: absolute;
@@ -466,13 +425,13 @@ h2 {
     overflow: hidden;
     cursor: pointer; }
     #staff .wrap-thumbnail:hover .thumbnail {
-      transform: translate(-50%, 0) scale(1.2); }
+      transform: translate(-50%, -50%) scale(1.2); }
     #staff .wrap-thumbnail .thumbnail {
       position: absolute;
       display: block;
-      top: 0;
+      top: 50%;
       left: 50%;
-      transform: translate(-50%, 0);
+      transform: translate(-50%, -50%);
       width: 110%;
       height: 110%;
       background-size: cover;
@@ -599,16 +558,106 @@ h2 {
 #members {
   padding-top: 150px;
   padding-bottom: 10vh; }
+  #members .title {
+    width: 130px; }
+    @media screen and (max-width: 980px) {
+      #members .title {
+        transform: translate(-50%, -50%); } }
+  #members h2 {
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    color: #241722;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 34px; }
+  #members .description {
+    margin: 0 auto;
+    width: 50%;
+    color: #8a8789;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center; }
+    @media screen and (max-width: 980px) {
+      #members .description {
+        width: 90%;
+        font-size: 18px; } }
+  #members .wrap-perfil {
+    position: relative;
+    margin-bottom: 40px; }
+  #members .wrap-act {
+    position: absolute;
+    top: 0;
+    right: 0; }
   #members #header {
     position: absolute;
     display: block;
     width: 100%;
     height: 150px; }
-    #members #header .title {
-      width: 130px; }
-      @media screen and (max-width: 980px) {
-        #members #header .title {
-          transform: translate(-50%, -50%); } }
+  #members #header-perfil {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100px; }
+    #members #header-perfil .wrap-thumb {
+      position: absolute;
+      display: block;
+      width: 200px;
+      height: 170px;
+      background-image: url("../img/asas.png");
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: translate(-50%, 0);
+      top: 0;
+      left: 50%; }
+      #members #header-perfil .wrap-thumb:before {
+        position: absolute;
+        display: block;
+        content: "";
+        width: 200px;
+        height: 170px;
+        background-image: url("../img/asas-2.png");
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        transform: translate(-50%, 0);
+        top: 0;
+        left: 50%;
+        z-index: 9; }
+      #members #header-perfil .wrap-thumb .thumb {
+        position: absolute;
+        width: 116px;
+        height: 116px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 50%;
+        overflow: hidden; }
+        #members #header-perfil .wrap-thumb .thumb .photo {
+          position: absolute;
+          display: block;
+          width: 110px;
+          height: 110px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: rgba(0, 0, 0, 0.2);
+          border-radius: 50%;
+          background-size: cover;
+          background-repeat: no-repeat; }
+        #members #header-perfil .wrap-thumb .thumb svg {
+          position: absolute;
+          display: block;
+          top: 47%;
+          left: 55%;
+          transform: translate(-50%, -50%);
+          opacity: .9;
+          width: 56px;
+          height: 56px; }
   #members .wrap-content {
     padding: 20px 30px 40px; }
   #members p {
