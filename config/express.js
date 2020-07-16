@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compress = require('compression');
+const fileUpload = require('express-fileupload');
 const methodOverride = require('method-override');
 
 const session = require('express-session');
@@ -30,6 +31,11 @@ module.exports = (app, config) => {
     // store: new redisStore( { host: 'COYpHXHz3oCL8If1rWG5teSMj4five5B@redis-12156.c91.us-east-1-3.ec2.cloud.redislabs.com', port: 12156, client: redisClient, ttl: 86400 } ),
     saveUninitialized: false,
     resave: false
+  } ) );
+
+  // enable files upload
+  app.use( fileUpload( {
+      createParentPath: true
   } ) );
 
   app.use(logger('dev'));
@@ -99,7 +105,8 @@ module.exports = (app, config) => {
       res.render( 'error', {
         message: err.message,
         error: err,
-        title: 'Arkanys - Erro'
+        title: 'Arkanys - Erro',
+        connected: ( req.session.key !== undefined && req.session.key )
       } );
     } );
   }
@@ -112,7 +119,8 @@ module.exports = (app, config) => {
     res.render( 'error', {
       message: err.message,
       error: err,
-      title: 'Arkanys - Erro'
+      title: 'Arkanys - Erro',
+      connected: ( req.session.key !== undefined && req.session.key )
     } );
   } );
 

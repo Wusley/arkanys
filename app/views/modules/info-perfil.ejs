@@ -1,7 +1,8 @@
-<section class="d-flex justify-content-between align-items-center">
-  <h2 style="white-space: nowrap;">Apelido: <%= member.name %></h2>
+<section class="wrap-perfil">
+  <h2><%= member.name %></h2>
+  <p class="description"><%= member.bio %></p>
 
-  <div class="wrap-act d-flex justify-content-between align-items-center">
+  <div class="wrap-act">
     <!-- <a href="whatsapp://send?text=Acesse o perfil de <%= member.name %>: https://arkanys.com.br/membro/<%= member.name %>" class="lnk">
       <svg width="25px" style="position: relative; top: -1px;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
       viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path style="fill:#93D632;" d="M512,255.843L299.221,22.522v139.202h-45.238C113.712,161.724,0,275.437,0,415.708v73.77
@@ -16,6 +17,7 @@
         data-name="<%= member.name %>"
         data-whatsapp="<%= member.whatsapp %>"
         data-master="<%= member.master %>"
+        data-bio="<%= member.bio %>"
         data-target="#modal-update-member"
         data-toggle="modal">
 
@@ -40,13 +42,21 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="/member" method="post">
+            <form action="/member" method="post" encType="multipart/form-data">
               <input type="hidden" class="form-control" name="id">
 
               <div class="modal-body">
                 <div class="form-group">
-                  <label for="name" class="col-form-label">Apelido:</label>
+                  <label for="name" class="col-form-label">Nickname:</label>
                   <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="form-group">
+                  <label for="bio" class="col-form-label">Bio:</label>
+                  <textarea class="form-control" id="bio" name="bio"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="bio" class="col-form-label">Imagem de perfil (110x110):</label>
+                  <input type="file" class="form-control-file" id="avatar" name="avatar">
                 </div>
                 <div class="form-group">
                   <label for="whatsapp" class="col-form-label">Número whatsapp:</label>
