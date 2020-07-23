@@ -44,6 +44,12 @@ module.exports = ( app, mongoose ) => {
 
       let member = await memberDAO.getMemberByName( req.params.name );
 
+      if( !member ) {
+
+        member = await memberDAO.getMemberById( req.params.name );
+
+      }
+
       let disciples = [];
       if( member && member.yourDisciples.length > 0 ) {
 

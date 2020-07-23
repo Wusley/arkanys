@@ -32,4 +32,10 @@
   @media screen and ( max-width: 980px ) {
     padding: 20px 0;
   }
+
+  @media screen and ( max-width: 640px ) {
+    .wrap-instagram {
+      padding: 20px 0;
+    }
+  }
 }

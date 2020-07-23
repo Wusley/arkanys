@@ -14,10 +14,12 @@
     text-align: center;
     width: 100%;
     padding: 0;
-    color: #241722;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 900;
-    font-size: 34px;
+
+    span {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
+      font-size: 34px;
+    }
   }
 
   .description {
@@ -43,8 +45,22 @@
 
   .wrap-act {
     position: absolute;
+    width: 100%;
     top: 0;
-    right: 0;
+    left: 0;
+
+    .btn-action {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: .25rem!important;
+    }
+
+    .btn-update {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
 
   #header {

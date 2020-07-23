@@ -59,9 +59,6 @@ module.exports = ( app, mongoose ) => {
 
       }
 
-      console.log( ( req.session.key !== undefined && req.session.key ) );
-      console.log(  _.shuffle( data ) );
-
       res.render( 'index', {
         title: 'ARKANYS E-SPORTS',
         connected: ( req.session.key !== undefined && req.session.key ),

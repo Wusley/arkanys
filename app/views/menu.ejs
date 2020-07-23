@@ -151,8 +151,14 @@
   </div><!-- menu-icon-wrapper -->
 
   <nav class="menu">
+    <% if( connected ) { %>
+      <div class="d-flex justify-content-center" style="margin-bottom: 50px; padding: 20px 0; background-color: rgba(255,255,255,0.04);">
+        <a class="lnk-2 logged" href="/membro/<%= connected %>">Seu perfil</a>
+      </div>
+    <% } %>
+
     <ul class="list js-scroll">
-      <li class="item"><a href="/" class="lnk-constrast">Início</a></li>
+      <li class="item"><a href="/" class="lnk-constrast">Tela inicial</a></li>
       <li class="item"><a href="/bem-vindos" class="lnk-constrast">Bem Vindos</a></li>
       <li class="item"><a href="/membros" class="lnk-constrast">Membros</a></li>
       <li class="item"><a href="/staff" class="lnk-constrast">Staff</a></li>

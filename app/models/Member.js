@@ -20,5 +20,9 @@ module.exports = {
     token: String,
     userID: String
   },
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  rank: {
+    unofficialMatch: { type: Number, default: 0 },
+    tournament: { type: Number, default: 0 }
+  }
 };

@@ -1,17 +1,4 @@
   <% if( ( connected && connected == member._id ) && ( !member.yourMasterId || member.yourMasterId === '' ) ) { %>
-    <button
-      type="button"
-      class="btn btn-dark col-sm btn-lg bg-secondary border-0"
-      data-toggle="modal"
-      data-tooltip="true"
-      data-target="#modal-master"
-      data-member-id="<%= member._id %>"
-      data-name="<%= member.name %>"
-      data-placement="top"
-      title="É possível enviar mais de uma solicitação.">
-        Clique aqui para conseguir um mestre
-      </button>
-
     <div class="modal fade" id="modal-master" tabindex="-1" role="dialog" aria-labelledby="Master" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
