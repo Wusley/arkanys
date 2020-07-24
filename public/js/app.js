@@ -177,4 +177,14 @@
 			} );
 		// END MENU
 
+		let firstAccess = Boolean( Cookies.get( 'first-access' ) );
+
+		if( !firstAccess || firstAccess === undefined ) {
+
+			$( '#menu-icon-trigger' ).trigger( 'click' );
+
+			Cookies.set( 'first-access', 'true', { expires: 999 } );
+
+		}
+
 	} );

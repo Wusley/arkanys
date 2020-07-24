@@ -4,16 +4,15 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  width: 40vw;
+  width: 28vw;
   top: 0;
-  right: calc( -40vw + 4px );
+  right: calc( -28vw + 4px );
   background: black url( '../img/bg-1.jpg' );
   background-size: cover;
   background-position: center;
   border-left: solid 4px #f60546;
   transition: 1s;
   z-index: 99999;
-
 
   @media screen and ( max-width: 980px ) {
     width: 80vw;
