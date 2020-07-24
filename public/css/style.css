@@ -736,7 +736,8 @@ h2 {
       top: 0;
       left: 0;
       border-radius: 0.25rem !important; }
-    #members .wrap-act .btn-update {
+    #members .wrap-act .wrap-info {
+      height: 38px;
       position: absolute;
       top: 0;
       right: 0; }

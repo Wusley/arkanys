@@ -42,11 +42,48 @@ module.exports = ( app, mongoose ) => {
 
     try {
 
+      let enableAccess = false;
+
       let member = await memberDAO.getMemberByName( req.params.name );
 
       if( !member ) {
 
         member = await memberDAO.getMemberById( req.params.name );
+
+      }
+
+      if( req.session.key !== undefined && req.session.key ) {
+
+        if( String( member._id ) === String( req.session.key ) ) {
+
+          enableAccess = true;
+
+        } else {
+
+          let logged = await memberDAO.getMemberById( req.session.key );
+
+          if( String( member._id ) === String( logged.yourMasterId ) ) {
+
+            enableAccess = true;
+
+          }
+
+          if( logged && logged.yourDisciples.length > 0 ) {
+
+            let count = 0;
+            for( ; count < logged.yourDisciples.length ; count++ ) {
+
+              if( String( member._id ) === String( logged.yourDisciples[ count ].id ) ) {
+
+                enableAccess = true;
+
+              }
+
+            }
+
+          }
+
+        }
 
       }
 
@@ -125,6 +162,7 @@ module.exports = ( app, mongoose ) => {
         requestsPendings: requestsPendings || false,
         name: req.params.name,
         connected: ( req.session.key !== undefined && req.session.key ),
+        enableAccess: enableAccess,
         cod: 200
       });
 
