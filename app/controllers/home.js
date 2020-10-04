@@ -16,7 +16,7 @@ module.exports = ( app, mongoose ) => {
       let masters = await memberDAO.getMasters();
 
       let data = [];
-      if( masters.length > 0 ) {
+      if( masters && masters.length > 0 ) {
 
         let countMasters = 0;
         for( ; countMasters < masters.length ; countMasters++ ) {
@@ -104,12 +104,12 @@ module.exports = ( app, mongoose ) => {
     });
   } );
 
-  router.get( '/gifts', ( req, res, next ) => {
-    res.render( 'gifts', {
-      title: 'ARKANYS E-SPORTS - Gifts',
-      connected: ( req.session.key !== undefined && req.session.key )
-    });
-  } );
+  // router.get( '/gifts', ( req, res, next ) => {
+  //   res.render( 'gifts', {
+  //     title: 'ARKANYS E-SPORTS - Gifts',
+  //     connected: ( req.session.key !== undefined && req.session.key )
+  //   });
+  // } );
 
   router.get( '/bem-vindos', ( req, res, next ) => {
     res.render( 'bem-vindo', {
@@ -149,6 +149,14 @@ module.exports = ( app, mongoose ) => {
       const members = './public/img/members';
       let countMembers = await fs.readdirSync( members, async ( err, files ) => {
         return files.length;
+      } );
+
+      console.log( {
+        title: 'ARKANYS E-SPORTS - Mural Honra',
+        countLeaders: countLeaders,
+        countHeads: _.shuffle( countHeads ),
+        countMembers: _.shuffle( countMembers ),
+        connected: ( req.session.key !== undefined && req.session.key )
       } );
 
       res.render( 'mural', {

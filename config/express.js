@@ -12,9 +12,9 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const redis = require('redis');
 const redisClient = redis.createClient( {
-    port      : 12156,               // replace with your port
-    host      : 'redis-12156.c91.us-east-1-3.ec2.cloud.redislabs.com',        // replace with your hostanme or IP address
-    password  : 'COYpHXHz3oCL8If1rWG5teSMj4five5B'    // replace with your password
+    port      : 11658,               // replace with your port
+    host      : 'redis-11658.c14.us-east-1-3.ec2.cloud.redislabs.com',        // replace with your hostanme or IP address
+    password  : 'K1BSRiphxGCE9QcRQHlbt4S4Az2hYhtz'    // replace with your password
 } );
 
 const redisStore = require('connect-redis')(session);
@@ -29,7 +29,7 @@ module.exports = (app, config) => {
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use( session( {
-    secret: 'COYpHXHz3oCL8If1rWG5teSMj4five5B',
+    secret: 'K1BSRiphxGCE9QcRQHlbt4S4Az2hYhtz',
     store: new redisStore( { client: redisClient, ttl: 86400 } ),
     saveUninitialized: false,
     resave: false
@@ -55,12 +55,20 @@ module.exports = (app, config) => {
   */
   const mongoose = require( 'mongoose' );
 
-  mongoose.connect( 'mongodb://arkanys:arkanys123@geonosis.mongodb.umbler.com:39589/arkanys', { useNewUrlParser: true, useUnifiedTopology: true } );
+  if( process.env.PROD === 'true' || process.env.PROD === true ) {
+
+    mongoose.connect( 'mongodb://arkanys:arkanys321@mongo_arkanys:27017/arkanys?authSource=arkanys', { useNewUrlParser: true, useUnifiedTopology: true } );
+
+  } else {
+
+    mongoose.connect( 'mongodb://arkanys:arkanys321@geonosis.mongodb.umbler.com:38338/arkanys?authSource=arkanys', { useNewUrlParser: true, useUnifiedTopology: true } );
+
+  }
 
   /*
    * EVENT INITIALIZE MONGODB
    */
-   mongoose.connection.once( 'open', async () => {
+   mongoose.connection.once( 'open', () => {
 
      console.info( 'Mongodb connected!' );
 
@@ -72,8 +80,6 @@ module.exports = (app, config) => {
 
        console.error( 'mongoose error' );
        console.error( err );
-
-       process.exit( 1 );
 
      }
    /*

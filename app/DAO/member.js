@@ -651,7 +651,10 @@ module.exports = ( function() {
               signedRequest,
               userID
             }
-          }
+          };
+
+          console.log( 'loginFacebook' );
+          console.log( finded );
 
           if( finded && obj ) {
 

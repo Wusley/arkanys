@@ -8,6 +8,7 @@ const config = {
     app: {
       name: 'arkanys'
     },
+    type: 'development',
     port: process.env.PORT || 3000,
   },
 
@@ -16,6 +17,7 @@ const config = {
     app: {
       name: 'arkanys'
     },
+    type: 'test',
     port: process.env.PORT || 3000,
   },
 
@@ -24,6 +26,7 @@ const config = {
     app: {
       name: 'arkanys'
     },
+    type: 'production',
     port: process.env.PORT || 3000,
   }
 };

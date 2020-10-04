@@ -33,7 +33,7 @@ module.exports = ( app, mongoose ) => {
 
         // req.session.save();
 
-        res.redirect( '/membro/' + login.name );
+        res.redirect( req.body[ 'currentUrl' ] );
 
       } else {
 
@@ -71,13 +71,13 @@ module.exports = ( app, mongoose ) => {
 
         // req.session.save();
 
-        res.redirect( '/membro/' + login.name );
+        res.redirect( req.body[ 'currentUrl' ] );
 
       } else {
 
         console.error( 'login' );
 
-        res.redirect( '/'  );
+        res.redirect( '/' );
 
       }
 
