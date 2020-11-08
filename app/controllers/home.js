@@ -104,12 +104,12 @@ module.exports = ( app, mongoose ) => {
     });
   } );
 
-  // router.get( '/gifts', ( req, res, next ) => {
-  //   res.render( 'gifts', {
-  //     title: 'ARKANYS E-SPORTS - Gifts',
-  //     connected: ( req.session.key !== undefined && req.session.key )
-  //   });
-  // } );
+  router.get( '/gifts', ( req, res, next ) => {
+    res.render( 'gifts', {
+      title: 'ARKANYS E-SPORTS - Gifts',
+      connected: ( req.session.key !== undefined && req.session.key )
+    });
+  } );
 
   router.get( '/bem-vindos', ( req, res, next ) => {
     res.render( 'bem-vindo', {
