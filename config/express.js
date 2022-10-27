@@ -13,8 +13,8 @@ const session = require('express-session');
 const redis = require('redis');
 const redisClient = redis.createClient( {
     port      : 11658,               // replace with your port
-    host      : 'redis-11658.c14.us-east-1-3.ec2.cloud.redislabs.com',        // replace with your hostanme or IP address
-    password  : 'K1BSRiphxGCE9QcRQHlbt4S4Az2hYhtz'    // replace with your password
+    host      : '',        // replace with your hostanme or IP address
+    password  : ''    // replace with your password
 } );
 
 const redisStore = require('connect-redis')(session);
@@ -29,7 +29,7 @@ module.exports = (app, config) => {
 
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use( session( {
-    secret: 'K1BSRiphxGCE9QcRQHlbt4S4Az2hYhtz',
+    secret: '',
     store: new redisStore( { client: redisClient, ttl: 86400 } ),
     saveUninitialized: false,
     resave: false
@@ -57,11 +57,11 @@ module.exports = (app, config) => {
 
   if( process.env.PROD === 'true' || process.env.PROD === true ) {
 
-    mongoose.connect( 'mongodb://arkanys:arkanys321@mongo_arkanys:27017/arkanys?authSource=arkanys', { useNewUrlParser: true, useUnifiedTopology: true } );
+    mongoose.connect( '', { useNewUrlParser: true, useUnifiedTopology: true } );
 
   } else {
 
-    mongoose.connect( 'mongodb://arkanys:arkanys321@geonosis.mongodb.umbler.com:38338/arkanys?authSource=arkanys', { useNewUrlParser: true, useUnifiedTopology: true } );
+    mongoose.connect( '', { useNewUrlParser: true, useUnifiedTopology: true } );
 
   }
 
